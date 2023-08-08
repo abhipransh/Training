@@ -1,0 +1,690 @@
+Distro or Distributions: A Linux distribution is an operating system made from a software collection that includes the Linux kernel, and often a package management system.
+Major Distros: Arch, Debian, Red Hat, Slackware Where Linux Mint, Ubuntu, Kali, etc. are from Debian and CentOS, Fedora, etc. are from Red Hat.
+
+
+General Command Syntax:
+	Command		Option(s) 	Argument(s)
+Ex:-  	ls		-lh		/usr/bin
+	sort		-u		users.txt
+
+
+LINUX COMMANDS
+
+1. pwd  --> print working directory
+   
+   Prints the path of the current working directory.
+
+	Example:
+	beryl@beryl-Latitude-7490:~$ pwd
+	/home/beryl
+
+2. cd  --> change directory
+
+   Used to move from the current working directory to a different directory.
+	
+   a) cd [directory_name]
+      
+      change into the given directory name inside the present directory
+	
+      	Example:
+	beryl@beryl-Latitude-7490:~$ cd Documents
+	beryl@beryl-Latitude-7490:~/Documents$ 
+
+   b) cd 
+
+      change into the root directory.
+      
+	Example:
+	beryl@beryl-Latitude-7490:~$ cd Exercise\ Files
+	beryl@beryl-Latitude-7490:~/Exercise Files$ cd departments
+	beryl@beryl-Latitude-7490:~/Exercise Files/departments$ cd
+	beryl@beryl-Latitude-7490:~$
+
+   c) cd ..
+
+      change into parent directory OR move one directory back
+
+3. ls
+   
+   ‘ls’ lists the contents of the current directory. By default, ‘ls’ lists files and directories in alphabetical order.
+	
+	Example:
+	beryl@beryl-Latitude-7490:~$ ls
+	Desktop   Documents   Downloads   examples.desktop  'Exercise Files'   home   Music   Pictures   Public   Templates   Training   Videos
+
+
+   a) -l  -->known as a long format that displays detailed information about files and directories.
+
+	Example:
+	beryl@beryl-Latitude-7490:~$ ls -l
+	total 56
+	drwxr-xr-x 2 beryl beryl 4096 Jul 14 11:15  Desktop
+	drwxr-xr-x 2 beryl beryl 4096 Jul 24 13:03  Documents
+	drwxr-xr-x 2 beryl beryl 4096 Jul 31 10:59  Downloads
+	-rw-r--r-- 1 beryl beryl 8980 Jul 10 10:28  examples.desktop
+	drwxrwxr-x 3 beryl beryl 4096 Dec 10  2018 'Exercise Files'
+	drwxrwxr-x 3 beryl beryl 4096 Jul 24 14:33  home
+	drwxr-xr-x 2 beryl beryl 4096 Jul 18 11:36  Music
+	drwxr-xr-x 2 beryl beryl 4096 Jul 14 11:15  Pictures
+	drwxr-xr-x 2 beryl beryl 4096 Jul 14 11:15  Public
+	drwxr-xr-x 2 beryl beryl 4096 Jul 14 11:15  Templates
+	drwxrwxr-x 2 beryl beryl 4096 Jul 31 12:22  Training
+	drwxr-xr-x 2 beryl beryl 4096 Jul 14 11:15  Videos
+
+
+   b) -a  --> Represent all files Include hidden files and directories in the listing.
+
+	Example:
+	beryl@beryl-Latitude-7490:~$ ls -a
+	 .    .bash_history   .bashrc   .config   Documents   examples.desktop   .gnupg   .ICEauthority   .mozilla   .mysql_history   .pki       Public   .sudo_as_admin_successful   .thunderbird   Videos
+	 ..   .bash_logout    .cache    Desktop   Downloads  'Exercise Files'    home     .local          Music      Pictures         .profile   .ssh     Templates                   Training       .viminfo
+ 
+
+   c) -t  --> Sort files and directories by their last modification time, displaying the most recently modified ones first.
+
+	Example:
+	beryl@beryl-Latitude-7490:~$ ls -t
+	 Training   Downloads   home   Documents   Music   Desktop   Pictures   Public   Templates   Videos   examples.desktop  'Exercise Files'
+	
+
+   d) -r  --> Known as reverse order which is used to reverse the default order of listing.
+	
+	Example:
+	beryl@beryl-Latitude-7490:~$ ls -r
+	 Videos   Training   Templates   Public   Pictures   Music   home  'Exercise Files'   examples.desktop   Downloads   Documents   Desktop
+
+   e) -S  --> Sort files and directories by their sizes, listing the largest ones first.
+
+	Example:
+	beryl@beryl-Latitude-7490:~$ ls -S
+	 examples.desktop   Desktop   Documents   Downloads  'Exercise Files'   home   Music   Pictures   Public   Templates   Training   Videos
+ 	
+   f) -R  --> List files and directories recursively, including subdirectories.
+
+	Example: 
+	beryl@beryl-Latitude-7490:~$ ls -R
+	.:
+	 Desktop   Documents   Downloads   examples.desktop  'Exercise Files'   home   Music   Pictures   Public   Templates   Training   Videos
+
+	./Desktop:
+
+	./Documents:
+
+	./Downloads:
+	'Blog System Exercise.pdf'   commandlinebasics-master.zip   slack-desktop-4.33.73-amd64.deb
+	
+	'./Exercise Files':
+	departments  dupes.txt  log.tar.gz  poems.txt  simple_data.txt  test.sh
+
+	'./Exercise Files/departments':
+	engineering  finance  hr  marketing  sales
+
+	'./Exercise Files/departments/engineering':
+	drawings  invoices  materials
+
+	'./Exercise Files/departments/engineering/drawings':
+
+	'./Exercise Files/departments/engineering/invoices':
+
+	'./Exercise Files/departments/engineering/materials':
+
+	'./Exercise Files/departments/finance':
+	documents  invoices  spreadsheets
+	
+	'./Exercise Files/departments/finance/documents':
+
+	'./Exercise Files/departments/finance/invoices':
+
+	'./Exercise Files/departments/finance/spreadsheets':
+
+	'./Exercise Files/departments/hr':
+	 candidates  'employee info'   policies
+
+	'./Exercise Files/departments/hr/candidates':
+
+	'./Exercise Files/departments/hr/employee info':
+
+	'./Exercise Files/departments/hr/policies':
+
+	'./Exercise Files/departments/marketing':
+
+	'./Exercise Files/departments/sales':
+	affiliates  enterprise  presentations  promotions
+
+	'./Exercise Files/departments/sales/affiliates':
+
+	'./Exercise Files/departments/sales/enterprise':
+
+	'./Exercise Files/departments/sales/presentations':
+
+	'./Exercise Files/departments/sales/promotions':
+
+	./home:
+	beryl
+
+	./home/beryl:
+	Documents
+
+	./home/beryl/Documents:
+
+	./Music:
+
+	./Pictures:
+
+	./Public:
+
+	./Templates:
+
+	./Training:
+	 Linux  'Linux Commands'   SQL_assgn.txt
+
+	./Videos:
+	beryl@beryl-Latitude-7490:~$ 
+	
+
+   g) -i  --> Known as inode which displays the index number (inode) of each file and directory.
+
+	Example:
+	beryl@beryl-Latitude-7490:~$ ls -i
+	3276883  Desktop    3276884  Downloads         3407933 'Exercise Files'  3276888  Music     3276886  Public     3407927  Training
+	3276887  Documents  3276806  examples.desktop  3282024  home             3276889  Pictures  3276885  Templates  3276890  Videos
+
+
+
+   h) -g  --> Known as group which displays the group ownership of files and directories instead of the owner.
+
+	Example:
+	beryl@beryl-Latitude-7490:~$ ls -g
+	total 56
+	drwxr-xr-x 2 beryl 4096 Jul 14 11:15  Desktop
+	drwxr-xr-x 2 beryl 4096 Jul 24 13:03  Documents
+	drwxr-xr-x 2 beryl 4096 Jul 31 10:59  Downloads
+	-rw-r--r-- 1 beryl 8980 Jul 10 10:28  examples.desktop
+	drwxrwxr-x 3 beryl 4096 Dec 10  2018 'Exercise Files'
+	drwxrwxr-x 3 beryl 4096 Jul 24 14:33  home
+	drwxr-xr-x 2 beryl 4096 Jul 18 11:36  Music
+	drwxr-xr-x 2 beryl 4096 Jul 14 11:15  Pictures
+	drwxr-xr-x 2 beryl 4096 Jul 14 11:15  Public
+	drwxr-xr-x 2 beryl 4096 Jul 14 11:15  Templates
+	drwxrwxr-x 2 beryl 4096 Jul 31 12:22  Training
+	drwxr-xr-x 2 beryl 4096 Jul 14 11:15  Videos
+	
+
+   i) -h  --> Print file sizes in human-readable format.
+	
+	Example:
+	beryl@beryl-Latitude-7490:~$ ls -lh
+	total 56K
+	drwxr-xr-x 2 beryl beryl 4.0K Jul 14 11:15  Desktop
+	drwxr-xr-x 2 beryl beryl 4.0K Jul 24 13:03  Documents
+	drwxr-xr-x 2 beryl beryl 4.0K Jul 31 10:59  Downloads
+	-rw-r--r-- 1 beryl beryl 8.8K Jul 10 10:28  examples.desktop
+	drwxrwxr-x 3 beryl beryl 4.0K Dec 10  2018 'Exercise Files'
+	drwxrwxr-x 3 beryl beryl 4.0K Jul 24 14:33  home
+	drwxr-xr-x 2 beryl beryl 4.0K Jul 18 11:36  Music
+	drwxr-xr-x 2 beryl beryl 4.0K Jul 14 11:15  Pictures
+	drwxr-xr-x 2 beryl beryl 4.0K Jul 14 11:15  Public
+	drwxr-xr-x 2 beryl beryl 4.0K Jul 14 11:15  Templates
+	drwxrwxr-x 2 beryl beryl 4.0K Jul 31 12:22  Training
+	drwxr-xr-x 2 beryl beryl 4.0K Jul 14 11:15  Videos
+
+
+   j) -d  --> List directories themselves, rather than their contents.
+
+	Example:
+	beryl@beryl-Latitude-7490:~$ ls -ld
+	drwxr-xr-x 21 beryl beryl 4096 Jul 31 11:04 .
+
+   Note: You can merge multiple options according to requirements.
+	
+4. echo  --> display lines of text or strings that are passed as arguments.
+
+	Example:
+	beryl@beryl-Latitude-7490:~$ echo "This is echo command"
+	This is echo command
+
+5. touch  --> 	It is used to create a file without any content. 
+		The file created using touch command is empty. 
+		This command can be used when the user doesn’t have data to store at the time of file creation.
+
+	Example:
+	beryl@beryl-Latitude-7490:~$ touch newfile.txt
+	beryl@beryl-Latitude-7490:~$ ls
+	 Desktop     examples.desktop   Music         Public      Videos
+	 Documents  'Exercise Files'    newfile.txt   Templates
+	 Downloads   home               Pictures      Training
+
+6. cat  --> Reads data from the file and gives its content as output. It helps us to create, view, and concatenate files.
+
+   a) View a single file
+	Example:
+	beryl@beryl-Latitude-7490:~$ cat newfile.txt 
+	This is newfile.txt
+
+   b) View multiple files
+	Example:
+	beryl@beryl-Latitude-7490:~$ cat newfile1.txt newfile2.txt
+	This is newfile.txt
+	How are you?
+
+   c) View contents of a file preceeding with line numbers
+	Example:
+	beryl@beryl-Latitude-7490:~$ cat -n newfile1.txt
+	     1	This is newfile.txt
+	     2	This is line one
+	     3	This is line two
+	     4	This is line three
+	     5	This is lnie four
+
+   d) Create a file and add content
+	Example:
+	beryl@beryl-Latitude-7490:~$ cat > newfile3.txt
+	Hi This is newfile3
+	This is line one
+	This is line two
+	This is line three
+	This is line four
+	^C
+   
+   e) Add content of file1 to file2
+	Example:
+	beryl@beryl-Latitude-7490:~$ cat newfile2.txt >> newfile1.txt
+	beryl@beryl-Latitude-7490:~$ cat newfile2.txt
+	How are you?
+	beryl@beryl-Latitude-7490:~$ cat newfile1.txt
+	This is newfile.txt
+	This is line one
+	This is line two
+	This is line three
+	This is lnie four
+	How are you?
+
+   f) Overwrite the contents of file 1 with file 2
+	Example:
+	beryl@beryl-Latitude-7490:~$ cat newfile1.txt > newfile2.txt
+	beryl@beryl-Latitude-7490:~$ cat newfile1.txt 
+	This is newfile.txt
+	This is line one
+	This is line two
+	This is line three
+	This is lnie four
+	How are you?
+	beryl@beryl-Latitude-7490:~$ cat newfile2.txt 
+	This is newfile.txt
+	This is line one
+	This is line two
+	This is line three
+	This is lnie four
+	How are you?
+
+7. mkdir  --> make directory or folder in current working directory
+
+	Example:
+	beryl@beryl-Latitude-7490:~$ ls
+	 Desktop           'Exercise Files'   newfile1.txt   Public
+	 Documents          home              newfile2.txt   Templates
+	 Downloads          Music             newfile3.txt   Training
+	 examples.desktop   new_directory     Pictures       Videos
+   
+   a) -p  --> Enables the command to create parent directories as necessary. If the directories exist, no error is specified. 
+	Example:
+	beryl@beryl-Latitude-7490:~$ mkdir -p first/second/third
+	beryl@beryl-Latitude-7490:~$ ls
+	 Desktop           'Exercise Files'   new_directory   Pictures    Videos
+	 Documents          first             newfile1.txt    Public
+	 Downloads          home              newfile2.txt    Templates
+	 examples.desktop   Music             newfile3.txt    Training
+	beryl@beryl-Latitude-7490:~$ cd first
+	beryl@beryl-Latitude-7490:~/first$ cd second
+	beryl@beryl-Latitude-7490:~/first/second$ cd third
+	beryl@beryl-Latitude-7490:~/first/second/third$ 
+
+8. rmdir  -->   Remove the DIRECTORY(ies), if they are empty.
+	Example:
+	beryl@beryl-Latitude-7490:~$ ls
+	 Desktop           'Exercise Files'   new_directory   Pictures    Videos
+	 Documents          first             newfile1.txt    Public
+	 Downloads          home              newfile2.txt    Templates
+	 examples.desktop   Music             newfile3.txt    Training
+	beryl@beryl-Latitude-7490:~$ rmdir Music
+	beryl@beryl-Latitude-7490:~$ ls
+	 Desktop           'Exercise Files'   newfile1.txt   Public
+	 Documents          first             newfile2.txt   Templates
+	 Downloads          home              newfile3.txt   Training
+	 examples.desktop   new_directory     Pictures       Videos
+
+9. rm  -->  remove or delete files 
+   
+	Example: 
+	beryl@beryl-Latitude-7490:~$ rm newfile3.txt
+	beryl@beryl-Latitude-7490:~$ ls
+	 Desktop     examples.desktop   home            newfile2.txt   Templates
+	 Documents  'Exercise Files'    new_directory   Pictures       Training
+	 Downloads   first              newfile1.txt    Public         Videos
+
+   a) rm -d dir_name  --> used to delete empty directories
+      	Example:
+	beryl@beryl-Latitude-7490:~$ rm -d Pictures
+	beryl@beryl-Latitude-7490:~$ ls
+	 Desktop     examples.desktop   home            newfile2.txt   Training
+	 Documents  'Exercise Files'    new_directory   Public         Videos
+	 Downloads   first              newfile1.txt    Templates
+
+   b) rm -r dir_name  --> remove directory and its contents respectively
+	Example:
+	beryl@beryl-Latitude-7490:~$ rm -r first
+	beryl@beryl-Latitude-7490:~$ ls
+	 Desktop     examples.desktop   new_directory   Public      Videos
+	 Documents  'Exercise Files'    newfile1.txt    Templates
+	 Downloads   home               newfile2.txt    Training
+
+10. cp  --> copy file or directories
+	
+   a) copy file from current directory to another
+	Example:
+	beryl@beryl-Latitude-7490:~$ cp newfile1.txt ./new_directory	*
+	beryl@beryl-Latitude-7490:~$ ls
+	 Desktop     examples.desktop   new_directory   Public      Videos
+	 Documents  'Exercise Files'    newfile1.txt    Templates
+	 Downloads   home               newfile2.txt    Training
+	beryl@beryl-Latitude-7490:~$ cd new_directory
+	beryl@beryl-Latitude-7490:~/new_directory$ ls
+	newfile1.txt
+
+   b) copy contents of one file to another
+	Example:
+	beryl@beryl-Latitude-7490:~$ ls
+	 Desktop     examples.desktop   new_directory   Public      Videos
+	 Documents  'Exercise Files'    newfile1.txt    Templates
+	 Downloads   home               newfile2.txt    Training
+	beryl@beryl-Latitude-7490:~$ cat newfile1.txt
+	This is newfile1.txt
+	This is line one
+	This is line two
+	This is line three
+	This is line four
+	How are you?
+	beryl@beryl-Latitude-7490:~$ cat newfile2.txt
+	This is newfile2.txt
+	This is line one
+	This is line two
+	This is line three
+	This is lnie four
+	I am fine
+	beryl@beryl-Latitude-7490:~$ cp newfile1.txt newfile2.txt 	*
+	beryl@beryl-Latitude-7490:~$ cat newfile2.txt
+	This is newfile1.txt
+	This is line one
+	This is line two
+	This is line three
+	This is line four
+	How are you?
+
+   c) Copy entire directory
+	Example:
+	beryl@beryl-Latitude-7490:~$ ls
+	 Desktop     examples.desktop   new_directory   Public      Videos
+	 Documents  'Exercise Files'    newfile1.txt    Templates
+	 Downloads   home               newfile2.txt    Training
+	beryl@beryl-Latitude-7490:~$ cp -r ./new_directory ./Documents		*
+	beryl@beryl-Latitude-7490:~$ ls
+	 Desktop     examples.desktop   new_directory   Public      Videos
+	 Documents  'Exercise Files'    newfile1.txt    Templates
+	 Downloads   home               newfile2.txt    Training
+	beryl@beryl-Latitude-7490:~$ cd Documents/
+	beryl@beryl-Latitude-7490:~/Documents$ ls
+	new_directory
+	beryl@beryl-Latitude-7490:~/Documents$ cd new_directory/
+	beryl@beryl-Latitude-7490:~/Documents/new_directory$ ls
+	newfile1.txt  newfile2.txt
+	beryl@beryl-Latitude-7490:~/Documents/new_directory$ 
+
+11. mv  --> move or rename file
+    
+   a) mv file1 file2  --> rename file1 to file2
+	Example:
+	beryl@beryl-Latitude-7490:~$ ls
+	 Desktop     examples.desktop   new_directory   Public      Videos
+	 Documents  'Exercise Files'    newfile1.txt    Templates
+	 Downloads   home               newfile2.txt    Training
+	beryl@beryl-Latitude-7490:~$ mv newfile1.txt filename1		*
+	beryl@beryl-Latitude-7490:~$ mv newfile2.txt filename2		*
+	beryl@beryl-Latitude-7490:~$ ls
+	 Desktop     examples.desktop   filename2       Public      Videos
+	 Documents  'Exercise Files'    home            Templates
+	 Downloads   filename1          new_directory   Training
+
+   b) mv filename path  --> move file from one place to another
+	Example:
+	beryl@beryl-Latitude-7490:~$ ls
+	 Desktop     examples.desktop   filename2       Public      Videos
+	 Documents  'Exercise Files'    home            Templates
+	 Downloads   filename1          new_directory   Training
+	beryl@beryl-Latitude-7490:~$ mv filename1 ./new_directory
+	beryl@beryl-Latitude-7490:~$ cd new_directory/
+	beryl@beryl-Latitude-7490:~/new_directory$ ls
+	filename1  newfile1.txt  newfile2.txt
+	
+
+
+
+12. less --> Used when large amount of data present in file take more time to open then it will provide page by page output.
+	Example:
+	beryl@beryl-Latitude-7490:~/Exercise Files$ less poems.txt 
+
+
+13. head  --> View the first ten lines of a text.
+	
+	Example:
+	beryl@beryl-Latitude-7490:~/Exercise Files$ head poems.txt 
+	Percy Shelley
+
+	Ozymandias
+		
+	I met a traveller from an antique land
+	Who said: Two vast and trunkless legs of stone
+	Stand in the desert. Near them on the sand,
+	Half sunk, a shatter'd visage lies, whose frown
+	And wrinkled lip and sneer of cold command
+	Tell that its sculptor well those passions read
+
+   a) View specified number of lines
+	Example:
+	beryl@beryl-Latitude-7490:~/Exercise Files$ head -n5 poems.txt 
+	Percy Shelley
+
+	Ozymandias
+
+	I met a traveller from an antique land
+
+14. tail  --> View last 10 lines of a text.
+	
+	Example:
+	beryl@beryl-Latitude-7490:~/Exercise Files$ tail poems.txt 
+
+	When the stars threw down their spears 
+	And water'd heaven with their tears: 
+	Did he smile his work to see?
+	Did he who made the Lamb make thee?
+	
+	Tyger Tyger burning bright, 
+	In the forests of the night: 
+	What immortal hand or eye,
+	Dare frame thy fearful symmetry?
+
+
+
+15. chmod  --> used to change the mode of permission given to owner, group and others.
+       PERMISSION      EXAMPLE
+
+         U   G   O
+        rwx rwx rwx     chmod 777 filename
+        rwx rwx r-x     chmod 775 filename
+        rwx r-x r-x     chmod 755 filename
+        rw- rw- r--     chmod 664 filename
+        rw- r-- r--     chmod 644 filename
+
+    	U = User
+        G = Group
+        O = Others
+
+        r = Read
+        w = write
+        x = execute
+        - = no access
+	
+	Example:
+	beryl@beryl-Latitude-7490:~/new_directory$ ls -lh
+	total 12K
+	-rw-rw-r-- 1 beryl beryl 105 Jul 31 16:34 filename1
+	-rw-rw-r-- 1 beryl beryl 104 Jul 31 16:27 newfile1.txt
+	-rw-rw-r-- 1 beryl beryl 104 Jul 31 16:32 newfile2.txt
+	beryl@beryl-Latitude-7490:~/new_directory$ chmod 777 filename1		*
+	beryl@beryl-Latitude-7490:~/new_directory$ ls -lh
+	total 12K
+	-rwxrwxrwx 1 beryl beryl 105 Jul 31 16:34 filename1
+	-rw-rw-r-- 1 beryl beryl 104 Jul 31 16:27 newfile1.txt
+	-rw-rw-r-- 1 beryl beryl 104 Jul 31 16:32 newfile2.txt
+	beryl@beryl-Latitude-7490:~/new_directory$ chmod u-rwx,g-rwx,o-rwx filename1 		*
+	beryl@beryl-Latitude-7490:~/new_directory$ ls -lh
+	total 12K
+	---------- 1 beryl beryl 105 Jul 31 16:34 filename1
+	-rw-rw-r-- 1 beryl beryl 104 Jul 31 16:27 newfile1.txt
+	-rw-rw-r-- 1 beryl beryl 104 Jul 31 16:32 newfile2.txt
+
+16. locate  --> find a file in the database system
+	
+	Example:
+	beryl@beryl-Latitude-7490:~$ locate poems.txt
+	/home/beryl/Exercise Files/poems.txt
+
+17. grep  --> search text in a file.
+	Example:
+	7:Stand in the desert. Near them on the sand,
+	11:Which yet survive, stamp'd on these lifeless things,
+	12:The hand that mock'd them and the heart that fed.
+	13:And on the pedestal these words appear:
+	16:Nothing beside remains: round the decay
+	18:The lone and level sands stretch far away. 
+	24:The Tyger
+	28:In the forests of the night; 
+	33:Burnt the fire of thine eyes?
+	35:What the hand, dare seize the fire?
+	38:Could twist the sinews of thy heart?
+	42:What the hammer? what the chain, 
+	44:What the anvil? what dread grasp, 
+	47:When the stars threw down their spears 
+	48:And water'd heaven with their tears: 
+	50:Did he who made the Lamb make thee?
+	53:In the forests of the night:
+ 
+18. diff  --> compares content of two files line by line and displayes the lines that do not match
+	Example:
+	beryl@beryl-Latitude-7490:~/new_directory$ diff newfile1.txt filename1 
+	1c1
+	< This is newfile.txt
+	---
+	> This is newfile1.txt
+	5c5
+	< This is lnie four
+	---
+	> This is line four
+
+19. man  --> Provides a user manual of any commands or utilities you can run in Terminal, including the name, description, and options. 
+
+	Example:
+	beryl@beryl-Latitude-7490:~$ man chown
+
+20. zip  --> create a zip file of multiple files
+	
+	zip [options] [file_name.zip] [files_names]
+
+	Example:
+	beryl@beryl-Latitude-7490:~$ zip example2.zip filename2 newfile2.txt 
+	  adding: filename2 (deflated 41%)
+	  adding: newfile2.txt (deflated 38%)
+	beryl@beryl-Latitude-7490:~$ ls -lh
+	total 68K
+	drwxr-xr-x 2 beryl beryl 4.0K Jul 14 11:15  Desktop
+	drwxr-xr-x 3 beryl beryl 4.0K Jul 31 16:38  Documents
+	drwxr-xr-x 2 beryl beryl 4.0K Jul 31 10:59  Downloads
+	-rw-rw-r-- 1 beryl beryl  447 Jul 31 18:34  example2.zip
+	-rw-r--r-- 1 beryl beryl 8.8K Jul 10 10:28  examples.desktop
+	-rw-rw-r-- 1 beryl beryl  447 Jul 31 18:31  example.zip
+	drwxrwxr-x 3 beryl beryl 4.0K Jul 31 17:23 'Exercise Files'
+	-rwxrwx--- 1 beryl beryl  105 Jul 31 16:36  filename2
+	drwxrwxr-x 3 beryl beryl 4.0K Jul 24 14:33  home
+	drwxrwxr-x 2 beryl beryl 4.0K Jul 31 18:30  new_directory
+	-rw-rw-r-- 1 beryl beryl  104 Jul 31 16:32  newfile2.txt
+	drwxr-xr-x 2 beryl beryl 4.0K Jul 14 11:15  Public
+	drwxr-xr-x 2 beryl beryl 4.0K Jul 14 11:15  Templates
+	drwxrwxr-x 2 beryl beryl 4.0K Jul 31 18:07  Training
+	drwxr-xr-x 2 beryl beryl 4.0K Jul 14 11:15  Videos
+
+21. sort  --> sort the file
+	
+   a) Sort according to first column
+	Example:
+	beryl@beryl-Latitude-7490:~/Exercise Files$ sort simple_data.txt 
+	Ananti  991     Orange
+	Anne	556	Green
+	Jian    3127    Purple
+	Miguel  671     Green
+	Name	ID	Team
+	Scott	314	Purple
+	Wes	1337	Orange
+
+   b) Sort according to second column but by first character
+	Example;
+	beryl@beryl-Latitude-7490:~/Exercise Files$ sort -k2 simple_data.txt
+	Wes	1337	Orange
+	Jian    3127    Purple
+	Scott	314	Purple
+	Anne	556	Green
+	Miguel  671     Green
+	Ananti  991     Orange
+	Name	ID	Team
+
+
+   c) Sort according to second column in increasing order\
+	Example:
+	beryl@beryl-Latitude-7490:~/Exercise Files$ sort -k2 -n simple_data.txt
+	Name	ID	Team
+	Scott	314	Purple
+	Anne	556	Green
+	Miguel  671     Green
+	Ananti  991     Orange
+	Wes	1337	Orange
+	Jian    3127    Purple
+
+   d) Sort for unique values in file.
+	Example:
+	beryl@beryl-Latitude-7490:~/Exercise Files$ cat dupes.txt 
+	Here's a line of text.
+	Here's a line of text.
+	Text can be easy to work with.
+	But some text can be tricky.
+	Here's a line of text.
+	Text can be easy to work with.
+	beryl@beryl-Latitude-7490:~/Exercise Files$ sort -u dupes.txt	*
+	But some text can be tricky.
+	Here's a line of text.
+	Text can be easy to work with.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

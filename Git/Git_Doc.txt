@@ -1,0 +1,239 @@
+                                                                                    ********** GIT COMMANDS **********
+
+1. Initialise a repository/folder
+
+	Command - git init
+	Suppose you are starting a new project OR you want to start tracking changes in a local project on your system.
+ 
+2. View status of files. (Untracked or Staged)
+
+	Command - git status
+	You can view the status of the files. It will show all the Untracked as well as staged files.
+	Staged files will be in green and Untracked files will be in red.
+
+3. Add untracked flies to staging area.
+	
+	Command - git add . 
+	This will add all the untracked files to staging area. 
+
+	Command - git add [file_name] 
+	This will add the file you want to the staging area.
+
+4. Commit your changes to git.
+
+	Command - git commit -m "[commit message]"
+	All the staged changes will be committed.
+
+	Command - git commit -am "[commit message]"
+	All the changes are commited without being staged.
+
+	Command - git commit OR git commit -a
+	Omitting the -m will prompt the editor so you can write a multiline commit message.
+
+	Command - git commit --amend -m "[new_commit_message]"
+	You can change the most recent commit message using this command.
+	The text of the commit message is part of the commit. Changing the commit message will change the SHA value of that commit.
+	Effectively, you are creating a new commit that replaces the old one.
+
+5. See the log of all your commits.
+
+	Command - git log
+	This will show you a log of the commits you have made in the project.
+	
+	Command - git log --since=[year-month-day]
+	This will show you the log of all the commits from a particular date.
+
+	Command - git log --until=[year-month-date]
+	This will show you the log of all the commits to particular date.
+
+	Command - git log --grep="[string]"
+	This will search for the string through all the commit messages and return all its occurences.
+
+	Command - git log --oneline
+	This command will show all the commits in one line with only the SHA value and first line of commit message.
+	Only the heading of multiline commit messages will be visible.
+
+6. Stash your changes.
+
+	Command - git stash
+	Suppose you have some files in your staging area which you dont want to commit as of yet. You decide to make some other changes and commit them first.
+	Then you can use this command. This will move all your changes to the stash area so you can pop them and commit them later.
+
+	Command - git stash pop
+	This command moves your changes from stash area to staging and unstaged area again.
+	
+	Command - git stash show OR git stash show -p
+	git stash show will show the files in the stash area whereas -p option will all show the content and changes in files.
+	
+	Command - git clean
+	This command will clear the stash area.
+
+7. Configure your git.
+	
+	Command - git --version
+	This will show you the version of git you are using.
+
+	Command - git config --list
+	This will show a list of all the configurations you have made.
+
+	Command - git config user.name
+	See the username that has been set.
+
+	Command - git config user.email
+	See the user email that has been set.
+
+	Command - git config --global core.editor "[editor_name]"
+	Set te editor you want to use.
+
+	Command - git config --global colour.ui=true
+	If your terminal is not showing colors use this command.
+
+8. Get some help from documentation.
+
+	Command - git help [command_name] OR man git-[command_name]
+	See the documentation of any command you want.
+
+
+9. See the changes made in a file.
+
+	Command - git diff
+	If you made some changes in working directory and want to know what they were you can use this command.
+	It will compare working directory files with staged files, and if there's no file in staged area it will compare it with the last commit of that file.
+	
+	Command - git diff --staged
+	This command will show you the difference between staged and committed versions.
+
+	Command - git diff --color-words
+	This will show you what are the exact changes in color.
+
+	Command - git diff [SHA value]..[SHA value]
+	You can compare any two commits using their SHA values and see what are the differences betwen those commits.
+
+	Command - git diff [SHA value]..HEAD
+	You can compare any commit with the HEAD or the latest commit. 
+
+10. See all the details of a particular commit.
+		
+	Command - git show [SHA value(full or staring part)]
+	This command show you all the details of a particular commit along with content and changes made.
+
+	Command - git show [SHA value(full or starting part)] --color-words
+	This command show you all the details of a particular commit along with content and exact changes made in colors.
+
+11. Remove untracked files from working directory.
+	
+	Command - git clean -n
+	This command will show you all the untracked files that will be removed.
+	Won't actually remove those files.
+
+	Command - git clean -f
+	This command will actually remove all those untracked files that git clean -n warned about.
+
+12. Revert a faulty commit.
+	
+	Command - git revert [SHA value]
+	If you made a faulty commit in the past and want to revert it you can use this command.
+	This command will revert the faulty commit that you made and commit that change as well.
+
+13. Create a new repository in Github.
+	
+	Command - git remote add origin [URL to repo]
+		  git branch -M main
+		  git push -u origin main
+	Go to github and click on new, give a name to name to it and create.
+	If you have an existing repository in your local machine you can push it to this repository.
+
+	Command - git remote -v
+	Shows you all the URL associated with repo.
+	
+14. Clone a repository on your local machine.
+
+	Command - git clone [URL to repo]
+	You can clone(download) any repository avaliable on github to your local machine.
+
+15. Fork a repository.
+
+	A fork is a copy of a repository. Forking a repository allows you to freely experiment with changes without affecting the original project.
+	When you fork a repository it will start appearing on your profile. 
+	You can find the fork option on top right corner when you open a repository on github.
+
+16. Update forked repo to original.
+	
+	Command - git remote add upstream [URL to repo]
+	If you have a forked repo in your account and you want to update it with the cahnges made in the original upstream project use this command.
+
+17. Create a new branch.
+
+	Command - git branch
+	See all the branches present in the repo.	
+
+	Command - git branch [branch_name]
+	When you want to add a new feature or fix a bug—no matter how big or how small—you spawn a new branch to encapsulate your changes.
+	Creating a new branch allows you to isolate your changes from the master branch.
+	If your experimentation goes well you always have the option to merge your changes into the master branch. 
+	If things don't go so well you can always discard the branch or keep it within your local repository.
+
+	Command - git checkout [branch_name]
+	You can use this command to start working on the branch you want.
+	The HEAD with move from previous branch to this branch.
+
+18. Match local repo with remote repo.
+	
+	Command - git pull upstream main
+	Incorporates changes from a remote repository into the current branch. 
+	If the current branch is behind the remote, then by default it will fast-forward the current branch to match the remote.
+
+19. Restore your changes.
+
+	Command - git restore [file_name]
+	If you made some changes to a file and now your file is corrupted you can always discard those changes and restore the version of that file that was last committed.	
+	This can also be used to discard any staged or unstaged changes.
+
+	Command - git restore --staged [filename.txt]
+	Use this command for moving the file from staged area to unstaged area.
+
+20. Reset your commits.
+	
+	Command - git reset [SHA value of the previous commit]
+	Suppose you want to undo some commits, you can do so by using this command.
+	This SHA value of the commit you provide, all the commits after that commit will be deleted.
+	The related files will be added to the unstaged area.
+
+	Command - git reset HEAD [filename]
+	It resets the file to the version which is present on the head.
+
+21. Using linux commands in git.
+
+	Command - git rm [filename]
+	This will delete the file and add this change to staging area.
+	
+	Command - git mv [filename1] [filename2]
+	Renames the file and adds this change to staging area.
+
+	Command - git mv [filename] ./[path]
+	Moves the file from present location to given location, and add this change to staging area.
+
+22.  Undo you changes.
+
+	Command - git checkout [SHA value of the commit you want to go to]
+	This command lets you caeck out any of the previous commit. You basically can have a look how your project looked in the past.
+	This command doesn't mke any changes. You can use git checkout main to return.	
+	
+	Command - git checkout -- [filename]
+	If you made some changes in your working directory by mistake and you want the previous version back you can use this command.
+	
+	Command - git checkout [SHA value of the commit] -- [finlename you want to restore]
+	If you want to restore a file to any of the previous commits.
+
+23. Ignoring files you don't want git to track.
+
+	You can use a .gitignore file and add all the files you want git not to track.
+	If you add a file that is being tracked, git will cotinue to track that file.
+	
+	Command - git rm --cached [filename]
+	If you want git to stop tracking the tracked file you added.
+	
+	Note: If you want git to track empty folders, add a .gitkeep file inside the folder.
+
+
+
