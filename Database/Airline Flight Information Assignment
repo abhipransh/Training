@@ -169,6 +169,28 @@ e. Find the names of pilots certified for some Boeing aircraft.
    FROM employees INNER JOIN certified USING(eid) INNER JOIN aircraft USING(aid)  
    WHERE aname LIKE '%Boeing%';
 
+f. Find the aids of all aircraft that can be used on routes from Los Angeles to Chicago.
+
+-> SELECT aid 
+   FROM aircraft 
+   WHERE cruisingrange > (
+   			SELECT MIN(distance) 
+   			FROM flights 
+   			WHERE source = 'Los Angeles' 
+   			AND destination = 'Chicago'); 
+
+g. Identify the routes that can be piloted by every pilot who makes more than 100,000.
+
+-> SELECT DISTINCT f.source, f.destination 
+   FROM flights f 
+   WHERE distance <= (
+   			SELECT MIN(range) 
+   			FROM (
+   				SELECT c.eid, MAX(a.cruisingrange) range 
+   				FROM employees e INNER JOIN certified c USING(eid) INNER JOIN aircraft a USING(aid) 
+   				WHERE e.salary::numeric > 100000 
+   				GROUP BY c.eid) range
+   		      );
 
 
 
