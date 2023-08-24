@@ -123,8 +123,14 @@
 		8, 'Los Angeles', 'Honolulu', 4115, '12:30:00', '10:10:00', 75000), (
 		9, 'Los Angeles', 'Honolulu', 4115, '14:30:00', '02:10:00', 80000);
 
+	INSERT INTO flights VALUES (
+		10, 'Los Angeles', 'Chicago', 1744, '13:05:00', '15:10:00', 12000);
 
+	INSERT INTO aircraft VALUES(
+		8, 'Boeing 777', 3100), (
+		9, 'Airbus beluga', 3150);
 
+	
 12. SELECT * FROM <table_name>;  - Shows all the data in the table
 	SELECT * FROM flights;
 
@@ -132,11 +138,29 @@
 	UPDATE employees SET salary = 85000 WHERE eid = 4 OR eid = 5;
 	UPDATE employees SET salary = 125000 WHERE eid IN(1, 2, 3);
 	UPDATE aircraft SET cruisingrange = 850 WHERE aid = 3;
+	UPDATE employees SET salary = 110000 WHERE eid = 9;
+	UPDATE employees SET salary = 100000 WHERE eid = 12;
+
+	
+	
+*****************************************************************************  QUERIES  *************************************************************************
 
 QUERIES:
 
 a. Find the names of aircraft such that all pilots certified to operate them earn more than 80,000.
 
+-> SELECT a.aname 
+   FROM aircraft a
+   WHERE a.aid IN (
+   		    SELECT c.aid 
+   		    FROM certified c INNER JOIN employees e USING(eid) 
+   		    WHERE NOT EXISTS (
+   		    		       SELECT * FROM employees e1 
+   		    		       WHERE e1.eid = e.eid 
+   		    		       AND e1.salary::numeric <= 80000
+   		    		      )
+   		   );
+ 
 
 b. For each pilot who is certified for more than three aircraft, find the eid and the maximum cruisingrange of the aircraft for which she or he is certified.
 
@@ -192,25 +216,83 @@ g. Identify the routes that can be piloted by every pilot who makes more than 10
    				GROUP BY c.eid) range
    		      );
 
+h. Print the enames of pilots who can operate planes with cruisingrange greater than 3000 miles but are not certified on any Boeing aircraft.
+
+-> SELECT DISTINCT e.ename 
+   FROM employees e INNER JOIN certified c USING(eid) INNER JOIN aircraft a USING(aid) 
+   WHERE a.cruisingrange > 3000 
+   AND c.aid NOT IN (
+   		      SELECT aid 
+   		      FROM aircraft 
+   		      WHERE aname LIKE '%Boeing%');    
+
+i. A customer wants to travel from Madison to New York with no more than two changes of flight. 
+   List the choice of departure times from Madison if the customer wants to arrive in New York by 6 p.m.
+
+-> 
+
+j. Compute the difference between the average salary of a pilot and the average salary of all employees (including pilots).
+
+-> SELECT pi.avgsal - emp.avgsal AS avgsal 
+   FROM (
+   	 SELECT AVG(e.salary::numeric) AS avgsal 
+   	 FROM employees e 
+   	 WHERE e.eid IN (
+   	 		  SELECT DISTINCT c.eid 
+   	 		  FROM certified c
+   	 		 )
+   	 ) AS pi, 
+   	 (
+   	  SELECT AVG(e.salary::numeric) AS avgsal 
+   	  FROM employees e
+   	 ) AS emp;
+
+k. Print the name and salary of every nonpilot whose salary is more than the average salary for pilots.
+
+-> SELECT e.ename, e.salary 
+   FROM employees e 
+   WHERE e.eid NOT IN (
+   			SELECT c.eid 
+   			FROM certified c
+   		       ) 
+   AND e.salary::numeric > (
+   			     SELECT AVG(e.salary::numeric) 
+   			     FROM employees e 
+   			     WHERE e.eid IN (
+   			     		      SELECT DISTINCT c.eid 
+   			     		      FROM certified c
+   			     		     )
+   			     );
+
+l. Print the names of employees who are certified only on aircrafts with cruising range longer than 1000 miles.
+
+-> SELECT DISTINCT ename 
+   FROM employees INNER JOIN certified USING(eid) INNER JOIN aircraft USING(aid) 
+   WHERE eid NOT IN (
+   		      SELECT DISTINCT eid 
+   		      FROM employees INNER JOIN certified USING(eid) INNER JOIN aircraft USING(aid) 
+   		      WHERE cruisingrange <= 1000
+   		     );
+
+m. Print the names of employees who are certified only on aircrafts with cruising range longer than 1000 miles, but on at least two such aircrafts.
+
+-> SELECT e.ename 
+   FROM employees e INNER JOIN certified c USING(eid) INNER JOIN aircraft a USING(aid) 
+   GROUP BY e.ename 
+   HAVING EVERY (a.cruisingrange > 1000) 
+   AND COUNT(*) >= 2;
 
 
+n. Print the names of employees who are certified only on aircrafts with cruising range longer than 1000 miles and who are certified on some Boeing aircraft.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-> SELECT DISTINCT ename 
+   FROM employees INNER JOIN certified USING(eid) INNER JOIN aircraft USING(aid) 
+   WHERE eid NOT IN (
+   		      SELECT DISTINCT eid 
+   		      FROM employees INNER JOIN certified USING(eid) INNER JOIN aircraft USING(aid) 
+   		      WHERE cruisingrange <= 1000
+   		     ) 
+   AND aname LIKE '%Boeing%';
 
 
 
