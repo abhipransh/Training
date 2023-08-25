@@ -1,0 +1,24 @@
+Install PostgreSQL on Ubuntu
+
+1. Execute the following command to create the file repository configuration:
+	
+	sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+
+2. Import the repository signing key:
+
+	wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+
+3. Update the package list:
+	
+	sudo apt-get update
+
+4. Install the latest version of PostgreSQL:
+
+	sudo apt-get install postgresql
+
+	Note: If you want to install a specific version, you can use postgresql-version instead of postgresql. For example, to install PostgreSQL version 12, you use the following command:
+	
+		sudo apt-get install postgresql-12
+
+
+It will take few minutes to download and install the PostgreSQL.
