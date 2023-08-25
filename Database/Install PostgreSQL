@@ -16,9 +16,29 @@ Install PostgreSQL on Ubuntu
 
 	sudo apt-get install postgresql
 
-	Note: If you want to install a specific version, you can use postgresql-version instead of postgresql. For example, to install PostgreSQL version 12, you use the following command:
+	Note: If you want to install a specific version, you can use postgresql-version instead of postgresql. 
+	      For example, to install PostgreSQL version 12, you use the following command:
 	
 		sudo apt-get install postgresql-12
 
 
-It will take few minutes to download and install the PostgreSQL.
+	It will take few minutes to download and install the PostgreSQL.
+
+5. When you installed PostgreSQL, the installation process created a user account called postgres associated with the default postgres role. 
+   To connect to PostgreSQL using the postgres role, you switch over to the postgres account on your server by typing:
+	
+	sudo -i -u postgres
+
+	It’ll prompt for the password of the current user. You need to provide the password and hit the Enter keyboard.
+
+6. Then, you can access the PostgreSQL using the psql by typing the following command:
+	
+	psql
+	
+	You’ll access the postgres prompt like this:
+	
+		postgres=#
+
+7. From here, you can interact with the PostgreSQL like issuing a query. To quit the PostgreSQL prompt, you run the following command:
+
+	postgres=# \q
