@@ -129,6 +129,13 @@
 	INSERT INTO aircraft VALUES(
 		8, 'Boeing 777', 3100), (
 		9, 'Airbus beluga', 3150);
+		
+	INSERT INTO flights VALUES (
+		11, 'Madison', 'Chicago', 800, '06:30:00', '12:30:00', 9000), (
+		12, 'Chicago', 'New York', 900, '13:10:00', '17:40:00', 10000), (
+		13, 'Madison', 'Los Angeles', 1200, '08:00:00', '11:00:00', 12000), (
+		14, 'Los Angeles', 'New York', 600, '12:00:00', '16:30:00', 10000);
+
 
 	
 12. SELECT * FROM <table_name>;  - Shows all the data in the table
