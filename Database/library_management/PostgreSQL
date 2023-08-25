@@ -1,47 +1,33 @@
-SELECT
-FROM
-CONCATENATION OPERATOR ||
-COLUMN ALIAS
-AS keyword
-ORDER BY ASC DESC
-NULLS FIRST, NULLS LAST
-DISTINCT, DISTINCT ON
-WHERE
-==, >, <, >=, <=, <>, !=
-AND, OR, NOT, IN, BETWEEN, LIKE, IS NULL
-LIMIT and OFFSET
-FETCH (same as LIMIT but conforms to sql standard), FETCH FIRST n ROWS ONLY
-IN, NOT IN - for selecting from a list or subquery
-CAST
-BETWEEN, NOT BETWEEN
-LIKE, ILIKE (case insensitive)
-NULL, IS NULL, IS NOT NULL
-CREATE TABLE
-INSERT INTO, VALUES
-USING(column_name) - If both the tables have same column name you can use this instead of a.key = b.key.
-DROP TABLE IF EXISTS
-ON DELETE CASCADE
+1. SQL: Structured Query Language, used to access and manipulate data.
 
-CLAUSES:
+2. SQL used CRUD operations to communicate with DB.
+	CREATE - execute INSERT statements to insert new tuple into the relation.
+	READ - Read data already in the relations.
+	UPDATE - Modify already inserted data in the relation.
+	DELETE - Delete specific data point/tuple/row or multiple rows.
+	
+3. SQL is not DB, is a query language.
 
-	1. DISTINCT, DISTINCT ON
-		DISTINCT helps select unique values from the result set whereas DISTINCT ON helps select unique values from a particular column.
-	2. 
+4. What is RDBMS? (Relational Database Management System)
+	Software that enable us to implement designed relational model.
+	e.g., MySQL, MS SQL, Oracle, IBM etc.
+	Table/Relation is the simplest form of data storage object in R-DB.
+	MySQL is open-source RDBMS, and it uses SQL for all CRUD operations
 
-Data Types:
+5. Data Types:
 
 	1. Numeric Types:	
 		Name 			Storage Size 	Description 				Range
 		smallint 		2 bytes 	small-range integer 			-32768 to +32767
 		integer 		4 bytes 	typical choice for integer 		-2147483648 to +2147483647
-		bigint 		8 bytes 	large-range integer 			-9223372036854775808 to 9223372036854775807
-		decimal 		variable 	user-specified precision,exact 	up to 131072 digits before the decimal point; up to 16383 digits after the decimal point
-		numeric 		variable 	user-specified precision,exact 	up to 131072 digits before the decimal point; up to 16383 digits after the decimal point
+		bigint 			8 bytes 	large-range integer 			-9223372036854775808 to 9223372036854775807
+		decimal 		variable 	user-specified precision,exact 		up to 131072 digits before the decimal point; up to 16383 digits after the decimal point
+		numeric 		variable 	user-specified precision,exact 		up to 131072 digits before the decimal point; up to 16383 digits after the decimal point
 		real 			4 bytes 	variable-precision,inexact 		6 decimal digits precision
 		double precision 	8 bytes 	variable-precision,inexact 		15 decimal digits precision
-		smallserial 		2 bytes 	small autoincrementing integer 	1 to 32767
-		serial 		4 bytes 	autoincrementing integer 		1 to 2147483647
-		bigserial 		8 bytes 	large autoincrementing integer 	1 to 9223372036854775807
+		smallserial 		2 bytes 	small autoincrementing integer 		1 to 32767
+		serial 			4 bytes 	autoincrementing integer 		1 to 2147483647
+		bigserial 		8 bytes 	large autoincrementing integer 		1 to 9223372036854775807
 	
 	2. Monetary Types
 		Name 	Storage Size 	Description 		Range
@@ -67,19 +53,76 @@ Data Types:
 	5. Boolean	
 		boolean	1 byte	- State true or False.
 
-Constraints:
+6. SELECT statement
 
-	1. NOT NULL − Ensures that a column cannot have NULL value.
-    	2. UNIQUE − Ensures that all values in a column are different.
-    	3. PRIMARY KEY − UNIQUE and NOT NULL.
-	4. FOREIGN KEY − Constrains data based on columns in other tables.
-    	5. CHECK − Ensures that all values in a column satisfy certain conditions.
+	SELECT select_list FROM table_name;
+	
+	1) Using PostgreSQL SELECT statement to query data from one column example
+		
+		SELECT reader_fname FROM reader;
+		
+	2) Using PostgreSQL SELECT statement to query data from multiple columns example
+	
+		SELECT reader_fname, reader_lname FROM ;
+		
+    	3) Using PostgreSQL SELECT statement to query data from all columns of a table example
+    	
+    		SELECT * FROM reader;
+    		
+    	4) Using PostgreSQL SELECT statement with expressions example
+    	
+    		SELECT reader_fname || ' ' || reader_lname FROM reader;
+    		
+    	5) Using PostgreSQL SELECT statement with expressions example
+    	
+    		SELECT 5 * 3;
+    		
+ 7. Column Aliases
+ 
+ 	SELECT column_name AS alias_name FROM table_name;
+ 	SELECT column_name alias_name FROM table_name;
+ 	SELECT expression AS alias_name FROM table_name;
+ 	
+ 	1) Assigning a column alias to a column example
+ 		
+ 		SELECT reader_fname, reader_lname AS surname FROM reader;
+ 		SELECT reader_fname, reader_lname surname FROM reader;
+ 		
+ 	2) Assigning a column alias to an expression example
+ 	
+ 		SELECT reader_fname || ' ' || reader_lname AS full_name FROM reader;
+ 		
+ 	3) Column aliases that contain spaces
+ 	
+ 		SELECT reader_fname || ' ' || reader_lname "full name" FROM reader;
+ 		
+8. ORDER BY clause
 
-Aggregate Functions:
-
-	1. COUNT() - used to count the number of rows in a database table.
-	2. MAX() - used to select the highest (maximum) value for a certain column.
-	3. 
-	3. MIN() - used to select the lowest (minimum) value for a certain column.
-	4. AVG() - used to select the average value for certain table column.
-	5. SUM() - used to select the total for a numeric column.
+	ORDER BY sorts in ascending order by default	
+	
+	SELECT select_list FROM table_name ORDER BY sort_expression1 [ASC | DESC], ... sort_expressionN [ASC | DESC];
+	
+	1) Using PostgreSQL ORDER BY clause to sort rows by one column
+	
+		SELECT reader_fname, reader_lname FROM reader ORDER BY reader_fname ASC;
+		
+	2) Using PostgreSQL ORDER BY clause to sort rows by one column in descending order
+	
+		SELECT reader_fname, reader_lname FROM reader ORDER BY reader_lname DESC;	
+		
+	3) Using PostgreSQL ORDER BY clause to sort rows by multiple columns
+	
+		SELECT reader_fname, reader_lname FROM reader ORDER BY reader_fname ASC, reader_lname DESC;
+		
+	4) Using PostgreSQL ORDER BY clause to sort rows by expressions
+	
+		SELECT reader_fname, LENGTH(reader_fname) len FROM reader ORDER BY len DESC;
+			
+	5) Using NULLS FIRST and NULLS LAST
+	
+		SELECT reader_fname, LENGTH(reader_fname) len FROM reader ORDER BY len DESC NULLS FIRST;
+		
+		SELECT reader_fname, LENGTH(reader_fname) len FROM reader ORDER BY len DESC NULLS LAST;
+	
+	
+		
