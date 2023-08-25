@@ -1,0 +1,20 @@
+Loading sample data dvdrental into the database.
+
+Download sample data dvdrental from https://www.postgresqltutorial.com/wp-content/uploads/2019/05/dvdrental.zip
+Download ER diagram for dvdrental from https://www.postgresqltutorial.com/wp-content/uploads/2018/03/printable-postgresql-sample-database-diagram.pdf
+
+1. Enter the following CREATE DATABASE statement to create a new dvdrental database.
+
+	postgres=# CREATE DATABASE dvdrental;
+
+	PostgreSQL will create a new database named dvdrental.
+
+2. Enter the exit command to quit psql:
+
+	postgres=# exit
+
+3. Use the pg_restore tool to load data into the dvdrental database:
+
+	pg_restore -U postgres -d dvdrental C:\sampledb\dvdrental.tar
+	
+Now you'll have dvdrental database in your system.
