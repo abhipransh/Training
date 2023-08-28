@@ -124,5 +124,92 @@
 		
 		SELECT reader_fname, LENGTH(reader_fname) len FROM reader ORDER BY len DESC NULLS LAST;
 	
+9. SELECT DISTINCT
+
+	The DISTINCT clause is used in the SELECT statement to remove duplicate rows from a result set. 
 	
+	SELECT DISTINCT column1, column2 FROM table_name;
+		
+	SELECT DISTINCT ON (column1) column_alias, column2 FROM table_name ORDER BY column1, column2;
+	
+	1) Using DISTINCT with multiple columns
+	
+		SELECT DISTINCT emp_fname, emp_lname FROM employee ORDER BY emp_fname, emp_lname;
+		
+	2) Using DISTINCT ON to set distinct for a particular column
+	
+		SELECT DISTINCT ON(emp_fname) f_name, emp_lname FROM employee;
+		
+10. WHERE Clause
+
+	SELECT select_list FROM table_name WHERE condition ORDER BY sort_expression;
+	
+	1) Using WHERE clause with the equal (=) operator 
+		
+		SELECT author_fname, author_lname FROM author WHERE author_fname = 'F.Scott';
+		
+	2) Using WHERE clause with the AND operator
+	
+		SELECT author_fname, author_lname FROM author WHERE author_fname = 'James' AND author_lname = 'Joyce';
+		
+	3) Using the WHERE clause with the OR operator
+	
+		SELECT author_fname, author_lname FROM author WHERE author_lname = 'Fitzgerald' OR author_fname = 'James';
+
+	4) Using WHERE clause with the IN operator		
+		
+		SELECT reader_fname, reader_lname FROM reader WHERE reader_fname IN ('F.Scott','James','Josie');
+
+	5) Using the WHERE clause with the LIKE 
+	
+		SELECT author_fname, author_lname FROM author WHERE author_fname LIKE 'Jam%';
+		
+	6) Using the WHERE clause with the BETWEEN operator 
+	
+		SELECT author_fname, LENGTH(author_fname) name_length FROM author WHERE author_fname LIKE 'A%' AND LENGTH(author_fname) BETWEEN 3 AND 5 ORDER BY name_length;
+
+	7) Using the WHERE clause with the not equal operator (<>) 
+	
+		SELECT author_fname, author_lname FROM author WHERE author_fname LIKE 'J%' AND author_lname <> 'Jo%';
+		
+11. LIMIT Clause
+
+	LIMIT is an optional clause of the SELECT statement that constrains the number of rows returned by the query.
+	
+	SELECT select_list FROM table_name ORDER BY sort_expression LIMIT row_count;
+	
+	SELECT select_list FROM table_name LIMIT row_count OFFSET row_to_skip;	
+	
+	1) Using PostgreSQL LIMIT to constrain the number of returned rows 
+	
+		SELECT film_id, title, release_year FROM film ORDER BY film_id LIMIT 5;
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
