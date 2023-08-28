@@ -1,0 +1,26 @@
+1. Install gnupg2, if not installed:
+
+	sudo apt install gnupg2
+	
+2. Install GPG keys:
+	
+	gpg2 --keyserver keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+	
+3. Install curl, if not installed:
+
+	sudo apt install curl
+
+4. Install RVM:
+
+	\curl -sSL https://get.rvm.io | bash -s stable
+	
+5. Restart the terminal.
+
+6. Install ruby.
+
+	rvm install ruby
+	
+Note:
+Useful links:
+1. https://rvm.io/
+2. https://github.com/rvm/ubuntu_rvm
