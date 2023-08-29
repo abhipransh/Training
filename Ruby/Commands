@@ -14,3 +14,13 @@
 
 5. ruby -v
 	check the ruby version you're using
+
+6. remove ruby
+	rvm remove rbx-<version>
+
+7. irb
+	interactive shell for ruby
+
+8. exit irb
+	exit!
+
