@@ -1,6 +1,16 @@
 1. rvm list
-	lists all the versions of ruby.
+	lists all the versions of ruby installed on the system.
 	
 2. rvm use <version>
 	use the ruby you want
 		rvm use 3.2.2
+
+3. rvm --default use 3.2.2
+	set the default ruby
+		rvm --default use 3.2.2
+
+4. rvm default 
+	start using the default version
+
+5. ruby -v
+	check the ruby version you're using
