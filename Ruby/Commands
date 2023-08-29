@@ -1,0 +1,6 @@
+1. rvm list
+	lists all the versions of ruby.
+	
+2. rvm use <version>
+	use the ruby you want
+		rvm use 3.2.2
