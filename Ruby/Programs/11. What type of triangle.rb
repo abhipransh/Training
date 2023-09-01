@@ -1,15 +1,16 @@
-puts "Enter the number to find the factorial:"
-num = gets.chomp.to_i
+puts "Enter the sides of triangle:"
+sides = gets.chomp.split().map{|e| e.to_i}
 
-fact = 1
-
-if (num == 0)
-	puts "Error! Could not find the factorial"
-else
-	i=1
-	while(i<=num)
-		fact=fact*i
-		i+=1
+def triangle(sides)
+	if(sides.length > 3 or (sides[0]+sides[1]) <= sides[2] or (sides[1] + sides[2]) <= sides[0] or (sides[2] + sides[0]) <= sides[1])
+		return "Not a triangle"
+	elsif(sides[0] == sides[1] and sides[1] == sides[2])
+		return "Equilateral Triangle"
+	elsif(sides[0] == sides[1] or sides[1] == sides[2] or sides[2] == sides[0])
+		return "Isoceles Triangle"
+	else
+		return "Scalene Triangle"
 	end
-end
-		puts "factorial of #{num} is #{fact}"
+end 
+
+puts "#{triangle(sides)}"
