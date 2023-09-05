@@ -1,0 +1,235 @@
+1. Create an array
+	There are many ways to create or initialize an array.
+	1. names = Array.new
+		using the new class method		
+		
+		3.2.2 :001 > names = Array.new
+ 		=> [] 
+
+	2. names = Array.new(20)
+		set the size of array at the time of creation with value = nil
+		
+		3.2.2 :002 > names = Array.new(20)
+		 => 
+		[nil,                                                      
+		... 
+	
+	3. names = Array.new(4, "mac")
+		creates an array with predefined size i.e. 4 and a value assigned to each element i.e. "mac"
+		
+		3.2.2 :006 > names = Array.new(4, "mac")
+		 => ["mac", "mac", "mac", "mac"] 
+	
+	4. nums = Array.new(10) { |e| e = e * 2 }
+		Populates each element with what the block evaluates to
+		
+		3.2.2 :008 > nums = Array.new(10) {|e| e *= 2}
+		 => [0, 2, 4, 6, 8, 10, 12, 14, 16, 18] 
+	
+	5. nums = Array.[](1, 2, 3, 4, 5)
+		initialises the array with the given values
+
+		3.2.2 :010 > nums = Array.[](1, 2, 3, 4, 5)
+		 => [1, 2, 3, 4, 5]
+
+	6. nums = Array[1, 2, 3, 4, 5]	
+		can also be initialised like this
+
+		3.2.2 :011 > nums = Array[1, 2, 3, 4, 5]
+		 => [1, 2, 3, 4, 5] 
+
+	7. digits = Array(0..9)
+		initialise an array by giving a range of arguments
+	
+		3.2.2 :012 > digits = Array(0..9)
+		 => [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]	
+
+
+2. Public array methods (assuming array is an array object)  
+
+	1. array & other_array
+		Returns a new array containing elements common to the two arrays, with no duplicates.
+		
+		3.2.2 :011 > nums = Array[1, 2, 3, 4, 5]
+		 => [1, 2, 3, 4, 5] 
+		3.2.2 :012 > digits = Array(0..9)
+		 => [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] 
+		3.2.2 :013 > nums & digits
+		 => [1, 2, 3, 4, 5] 
+
+	2. array * int [or] array * str
+		Returns a new array built by concatenating the int copies of self. With a String argument, equivalent to self.join(str).
+		
+		3.2.2 :008 > nums = Array(1..5)
+		 => [1, 2, 3, 4, 5] 
+		3.2.2 :009 > nums*3
+		 => [1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5] 
+
+		3.2.2 :011 > names = Array(["Hi", "Hello"])
+		 => ["Hi", "Hello"] 
+		3.2.2 :012 > names*3
+		 => ["Hi", "Hello", "Hi", "Hello", "Hi", "Hello"] 
+
+	3. array + other_array
+		Returns a new array built by concatenating the two arrays together to produce a third array.
+
+		3.2.2 :008 > nums = Array(1..5)
+		 => [1, 2, 3, 4, 5]
+		3.2.2 :011 > names = Array(["Hi", "Hello"])
+		 => ["Hi", "Hello"]
+		3.2.2 :013 > names + nums
+		 => ["Hi", "Hello", 1, 2, 3, 4, 5] 
+
+	4. array - other_array
+		Returns a new array that is a copy of the original array, removing any items that also appear in other_array.
+		
+		3.2.2 :008 > nums = Array(1..5)
+		 => [1, 2, 3, 4, 5]
+		3.2.2 :014 > digits = Array(3..7)
+		 => [3, 4, 5, 6, 7] 
+		3.2.2 :015 > nums - digits
+		 => [1, 2] 
+		
+	5. array <=> other_array
+		Compares str with other_str, returning -1 (less than), 0 (equal), or 1 (greater than). The comparison is casesensitive.
+
+		3.2.2 :011 > names = Array(["Hi", "Hello"])
+		 => ["Hi", "Hello"]
+		3.2.2 :018 > strings = Array(["Hi", "Hello"])  
+		 => ["Hi", "Hello"] 
+		3.2.2 :019 > strings <=> names
+		 => 0 
+		3.2.2 :020 > strings = Array(["Hi", "hello"])  
+		 => ["Hi", "hello"] 
+		3.2.2 :021 > strings <=> names
+		 => 1 
+		3.2.2 :022 > strings = Array(["HI", "HELLO"])  
+		 => ["HI", "HELLO"] 
+		3.2.2 :023 > strings <=> names
+		 => -1 
+
+	6. array | other_array
+		Returns a new array by joining array with other_array, removing duplicates.
+
+		3.2.2 :024 > nums
+		 => [1, 2, 3, 4, 5] 
+		3.2.2 :025 > digits
+		 => [3, 4, 5, 6, 7] 
+		3.2.2 :026 > nums | digits
+		 => [1, 2, 3, 4, 5, 6, 7] 
+
+	7. array << obj
+		Pushes the given object onto the end of array. This expression returns the array itself, so several appends may be chained together.
+
+		3.2.2 :024 > nums
+		 => [1, 2, 3, 4, 5]
+		3.2.2 :027 > nums << 8
+		 => [1, 2, 3, 4, 5, 8] 
+
+		3.2.2 :030 > nums << 8 << 9 << 10 << 11
+		 => [1, 2, 3, 4, 5, 8, 8, 9, 10, 11] 
+
+	8. array <=> other_array
+		Compares str with other_str, returning -1 (less than), 0 (equal), or 1 (greater than). The comparison is casesensitive.
+
+		3.2.2 :032 > nums
+		 => [1, 2, 3, 4, 5, 8, 8, 9, 10, 11] 
+		3.2.2 :033 > digits
+		 => [3, 4, 5, 6, 7] 
+		3.2.2 :034 > nums <=> digits
+		 => -1 
+		
+		3.2.2 :040 > nums
+		 => [1, 2, 3, 4, 5] 
+		3.2.2 :041 > digits
+		 => [1, 2, 3, 4, 5] 
+		3.2.2 :042 > nums <=> digits
+		 => 0 
+		
+		3.2.2 :045 > nums
+		 => [2, 3, 4, 5, 6] 
+		3.2.2 :046 > digits
+		 => [1, 2, 3, 4, 5] 
+		3.2.2 :047 > nums <=> digits
+		 => 1 
+
+	9. array == other_array
+		Two arrays are equal if they contain the same number of elements and if each element is equal to (according to Object.==) the corresponding element in the other array.
+
+		3.2.2 :049 > nums == digits
+		 => false 
+		3.2.2 :050 > nums = [1, 2, 3, 4, 5]
+		 => [1, 2, 3, 4, 5] 
+		3.2.2 :051 > digits
+		 => [1, 2, 3, 4, 5] 
+		3.2.2 :052 > nums == digits
+		 => true 
+
+	10. array[index] [or] array[start, length] [or] array[range] [or] array.slice(index) [or] array.slice(start, length) [or] array.slice(range)
+		Returns the element at index, or returns a subarray starting at start and continuing for length elements, or returns a subarray specified by range. 
+		Negative indices count backward from the end of the array (-1 is the last element). Returns nil if the index (or starting index) is out of range.
+
+		3.2.2 :054 > nums
+		 => [1, 2, 3, 4, 5] 
+		3.2.2 :055 > nums[2]
+		 => 3 
+
+		3.2.2 :056 > nums[0, 3]
+		 => [1, 2, 3] 
+		
+		3.2.2 :057 > nums[1..3]
+		 => [2, 3, 4] 
+		3.2.2 :058 > nums[1...3]
+		 => [2, 3]
+
+		3.2.2 :059 > nums.slice(2)
+		 => 3 
+		3.2.2 :061 > nums.slice(3)
+		 => 4 
+		3.2.2 :062 > nums
+		 => [1, 2, 3, 4, 5] 
+
+		3.2.2 :063 > nums.slice(1, 3)
+		 => [2, 3, 4] 
+
+		3.2.2 :064 > nums.slice(1..4)
+		 => [2, 3, 4, 5] 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
