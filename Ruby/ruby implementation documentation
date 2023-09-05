@@ -195,41 +195,467 @@
 		3.2.2 :064 > nums.slice(1..4)
 		 => [2, 3, 4, 5] 
 
+	11. array[index] = obj [or] array[start, length] = obj or an_array or nil [or] array[range] = obj or an_array or nil
+		Sets the element at index, or replaces a subarray starting at start and continuing for length elements, or replaces a subarray specified by range. 
+		If indices are greater than the current capacity of the array, the array grows automatically. Negative indices will count backward from the end of the array. 
+		Inserts elements if length is zero. If nil is used in the second and third form, deletes elements from self.
 
+		3.2.2 :065 > nums
+		 => [1, 2, 3, 4, 5] 
+		3.2.2 :066 > nums[3] = 5
+		 => 5 
+		3.2.2 :067 > nums
+		 => [1, 2, 3, 5, 5] 
+		
+		3.2.2 :068 > nums[1, 3] = 2
+		 => 2 
+		3.2.2 :069 > nums
+		 => [1, 2, 5] 
+		3.2.2 :070 > nums[0, 2] = [1, 2, 3]
+		 => [1, 2, 3] 
+		3.2.2 :071 > nums
+		 => [1, 2, 3, 5] 
+		3.2.2 :072 > nums[1, 3] = nil
+		 => nil 
+		3.2.2 :073 > nums
+		 => [1, nil] 
 
+		3.2.2 :075 > nums = [1, 2, 3, 4, 5]
+		3.2.2 :076 > nums[1..3] = 4
+		 => 4 
+		3.2.2 :077 > nums
+		 => [1, 4, 5] 
+		3.2.2 :078 > nums[0, 2] = [1, 2, 3, 4]
+		 => [1, 2, 3, 4] 
+		3.2.2 :079 > nums
+		 => [1, 2, 3, 4, 5] 
+		3.2.2 :080 > nums[0..3] = nil
+		 => nil 
+		3.2.2 :081 > nums
+		 => [nil, 5] 
 
+	12. array.abbrev(pattern = nil) 
+		Calculates the set of unambiguous abbreviations for the strings in self. 
+		If passed a pattern or a string, only the strings matching the pattern or starting with the string are considered.
+		
+		3.2.2 :084 > names
+		 => ["Hi", "Hello"] 
+		3.2.2 :085 > require 'abbrev'
+		 => true 
+		3.2.2 :086 > names.abbrev
+		 => {"Hi"=>"Hi", "Hello"=>"Hello", "Hell"=>"Hello", "Hel"=>"Hello", "He"=>"Hello"}  
 
+		3.2.2 :089 > names.abbrev(pattern = "He")
+		 => {"Hello"=>"Hello", "Hell"=>"Hello", "Hel"=>"Hello", "He"=>"Hello"} 
 
+	13. array.assoc(obj)
+		Searches through an array whose elements are also arrays comparing obj with the first element of each contained array using obj.==. 
+		Returns the first contained array that matches or nil if no match is found.
+		
+		3.2.2 :097 > nums = [[1, 2, 3, 4], [2, 3, 4, 5], [1, 3, 5, 7, 9], [1, 2, 3, 4, 6], [6, 5, 4, 3, 2], [9, 7, 5, 4, 6, 8]] 
+		 => [[1, 2, 3, 4], [2, 3, 4, 5], [1, 3, 5, 7, 9], [1, 2, 3, 4, 6], [6, 5, 4, 3, 2], [9, 7, 5, 4, 6, 8]] 
+		3.2.2 :098 > nums.assoc(9)
+		 => [9, 7, 5, 4, 6, 8]
+		3.2.2 :099 > nums.assoc(3)
+		 => nil 
 
+	14. array.at(index)
+		Returns the element at index. A negative index counts from the end of self. Returns nil if the index is out of range.
 
+		3.2.2 :100 > digits
+		 => [1, 2, 3, 4, 5] 
+		3.2.2 :101 > digits.at(4)
+		 => 5 
 
+	15. array.clear
+		Removes all elements from array.
+		
+		3.2.2 :102 > nums
+		 => [[1, 2, 3, 4], [2, 3, 4, 5], [1, 3, 5, 7, 9], [1, 2, 3, 4, 6], [6, 5, 4, 3, 2], [9, 7, 5, 4, 6, 8]] 
+		3.2.2 :103 > nums.clear
+		 => [] 
+		3.2.2 :104 > nums
+		 => [] 
 
+	16. array.collect { |item| block } [or] array.map { |item| block }
+		Invokes block once for each element of self. Creates a new array containing the values returned by the block.
 
+		3.2.2 :107 > nums
+		 => [1, 2, 3, 4, 5, 6, 7, 8, 9] 
+		3.2.2 :108 > numbers = nums.collect {|item| item = item * 2}
+		 => [2, 4, 6, 8, 10, 12, 14, 16, 18] 
+		3.2.2 :109 > numbers
+		 => [2, 4, 6, 8, 10, 12, 14, 16, 18] 
 
+		3.2.2 :110 > numbers = nums.map {|item| item = item * 2}
+		 => [2, 4, 6, 8, 10, 12, 14, 16, 18]
+		3.2.2 :111 > numbers
+		 => [2, 4, 6, 8, 10, 12, 14, 16, 18] 
 
+	17. array.collect! { |item| block } [or] array.map! { |item| block }
+		Invokes block once for each element of self, replacing the element with the value returned by block.
 
+		3.2.2 :113 > numbers
+		 => [2, 4, 6, 8, 10, 12, 14, 16, 18] 
+		3.2.2 :114 > numbers.collect! {|item| item = item / 2}
+		 => [1, 2, 3, 4, 5, 6, 7, 8, 9] 
+		3.2.2 :115 > numbers
+		 => [1, 2, 3, 4, 5, 6, 7, 8, 9] 
+		
+		3.2.2 :115 > numbers
+		 => [1, 2, 3, 4, 5, 6, 7, 8, 9] 
+		3.2.2 :117 > numbers.map! {|item| item = item * 2}
+		 => [2, 4, 6, 8, 10, 12, 14, 16, 18]
 
+	18. array.compact
+		Returns a copy of self with all nil elements removed.
 
+		3.2.2 :122 > nums
+		 => [1, 2, nil, 7, 8, nil] 
+		3.2.2 :123 > nums.compact
+		 => [1, 2, 7, 8]
+		3.2.2 :124 > nums
+		 => [1, 2, nil, 7, 8, nil]  
 
+	19. array.compact!
+		Removes nil elements from array. Returns nil if no changes were made.
 
+		3.2.2 :124 > nums
+		 => [1, 2, nil, 7, 8, nil] 
+		3.2.2 :125 > nums.compact!
+		 => [1, 2, 7, 8] 
+		3.2.2 :126 > nums
+		 => [1, 2, 7, 8] 
 
+	20. array.concat(other_array)
+		Appends the elements in other_array to self.
 
+		3.2.2 :128 > numbers
+		 => [2, 4, 6, 8, 10, 12, 14, 16, 18] 
+		3.2.2 :129 > digits
+		 => [1, 2, 3, 4, 5] 
+		3.2.2 :130 > numbers.concat(digits)
+		 => [2, 4, 6, 8, 10, 12, 14, 16, 18, 1, 2, 3, 4, 5] 
 
+	21. array.delete(obj) [or] array.delete(obj) { block }
+		Deletes items from self that are equal to obj. If the item is not found, returns nil. If the optional code block is given, returns the result of block if the item is not found.
 
+		3.2.2 :131 > numbers
+		 => [2, 4, 6, 8, 10, 12, 14, 16, 18, 1, 2, 3, 4, 5] 
+		3.2.2 :132 > numbers.delete(8)
+		 => 8 
+		3.2.2 :133 > numbers
+		 => [2, 4, 6, 10, 12, 14, 16, 18, 1, 2, 3, 4, 5] 
 
+		3.2.2 :134 > numbers.delete(0)
+		 => nil 
 
+		3.2.2 :137 > numbers.delete(54) {|item| item/2}
+		 => 27 
+	
+	22. array.delete_at(index)
+		Deletes the element at the specified index, returning that element, or nil if the index is out of range.
 
+		3.2.2 :138 > numbers
+		 => [2, 4, 6, 10, 12, 14, 16, 18, 1, 2, 3, 4, 5] 
+		3.2.2 :140 > numbers.delete_at(3)
+		 => 10 
+		3.2.2 :141 > numbers
+		 => [2, 4, 6, 12, 14, 16, 18, 1, 2, 3, 4, 5] 
 
+	23. array.delete_if { |item| block }
+		Deletes every element of self for which block evaluates to true.
+		
+		3.2.2 :141 > numbers
+		 => [2, 4, 6, 12, 14, 16, 18, 1, 2, 3, 4, 5] 
+		3.2.2 :142 > numbers.delete_if {|item| item % 2 == 0}
+		 => [1, 3, 5] 
+		
+	24. array.each { |item| block }
+		Calls block once for each element in self, passing that element as a parameter.
+		
+		3.2.2 :150 > numbers
+		 => [1, 3, 5] 
+		3.2.2 :151 > numbers.each {|item| puts item}
+		1
+		3                                                                    
+		5                                                                    
+		 => [1, 3, 5]  
 
+	25. array.each_index { |index| block }
+		Same as Array#each, but passes the index of the element instead of the element itself.
 
+		3.2.2 :152 > numbers
+		 => [1, 3, 5] 
+		3.2.2 :153 > numbers.each_index {|index| puts numbers[index]}
+		1
+		3                                                                        
+		5                                                                        
+		 => [1, 3, 5] 
 
+	26. array.empty?
+		Returns true if the self array contains no elements.
 
+		3.2.2 :154 > numbers.empty?
+		 => false 
+		3.2.2 :155 > numbers.clear
+		 => [] 
+		3.2.2 :156 > numbers.empty?
+		 => true 
 
+	27. array.eql?(other)
+		Returns true if array and other are the same object, or are both arrays with the same content.
 
+		3.2.2 :157 > nums
+		 => [1, 2, 7, 8] 
+		3.2.2 :158 > numbers
+		 => [] 
+		3.2.2 :159 > nums.eql?(numbers)
+		 => false 
+		3.2.2 :160 > numbers = [1, 2, 7, 8]
+		 => [1, 2, 7, 8] 
+		3.2.2 :161 > nums.eql?(numbers)
+		 => true 
+	
+	28. array.fetch(index) [or] array.fetch(index, default) [or] array.fetch(index) { |index| block }
+		Tries to return the element at position index. If index lies outside the array, the first form throws an IndexError exception, 
+		the second form returns default, and the third form returns the value of invoking block, passing in index. Negative values of index count from the end of the array.
 
+		3.2.2 :164 > nums
+		 => [1, 2, 7, 8] 
+		3.2.2 :165 > nums.fetch(2)
+		 => 7 
 
+		3.2.2 :166 > nums.fetch(5)
+		(irb):166:in `fetch': index 5 outside of array bounds: -4...4 (IndexError)
+		        from (irb):166:in `<main>'                
+		        from /home/beryl/.rvm/rubies/ruby-3.2.2/lib/ruby/gems/3.2.0/gems/irb-1.6.2/exe/irb:11:in `<top (required)>'               
+		        from /home/beryl/.rvm/rubies/ruby-3.2.2/bin/irb:31:in `load'
+		        from /home/beryl/.rvm/rubies/ruby-3.2.2/bin/irb:31:in `<main>'
 
+		3.2.2 :167 > nums.fetch(5, 2)
+		 => 2 
 
+		3.2.2 :168 > nums.fetch(5) {|index| index*2}
+		 => 10 
 
+	29. array.fill(obj) [or] array.fill(obj, start [, length]) [or] array.fill(obj, range) [or] array.fill { |index| block } [or] array.fill(start [, length] ) { |index| block } 
+	    [or] array.fill(range) { |index| block }
+		The first three forms set the selected elements of self to obj. A start of nil is equivalent to zero. A length of nil is equivalent to self.length. 
+		The last three forms fill the array with the value of the block. The block is passed with the absolute index of each element to be filled.
 
+		3.2.2 :169 > nums
+		 => [1, 2, 7, 8] 
+		3.2.2 :170 > nums.fill(3)
+		 => [3, 3, 3, 3] 
+		3.2.2 :171 > nums
+		 => [3, 3, 3, 3] 
 
+		3.2.2 :173 > nums
+		 => [3, 3, 3, 3] 
+		3.2.2 :174 > nums.fill(4, 1, 2)
+		 => [3, 4, 4, 3] 
+
+		3.2.2 :175 > nums.fill(5, 1..3)
+		 => [3, 5, 5, 5] 
+
+		3.2.2 :176 > nums.fill {|index| nums[index] += nums[index-1]}
+		 => [8, 13, 18, 23] 
+
+		3.2.2 :177 > nums.fill(2) {|index| nums[index] -= nums[index-1]}
+		 => [8, 13, 5, 18]
+
+		3.2.2 :178 > nums.fill(1..3) {|index| nums[index] = nums[index]*2}
+		 => [8, 26, 10, 36]
+
+	30. array.first [or] array.first(n)
+		Returns the first element, or the first n elements, of the array. If the array is empty, the first form returns nil, and the second form returns an empty array.
+
+		3.2.2 :179 > nums
+		 => [8, 26, 10, 36] 
+		3.2.2 :180 > nums.first
+		 => 8 
+		3.2.2 :181 > nums.first(3)
+		 => [8, 26, 10] 
+
+	31. array.flatten
+		Returns a new array that is a one-dimensional flattening of this array (recursively).	
+
+		3.2.2 :185 > nums = [[1, 32, 12, 4], [3, 2], 1, 1, 3, 54, 21]
+		 => [[1, 32, 12, 4], [3, 2], 1, 1, 3, 54, 21] 
+		3.2.2 :186 > nums.flatten
+		 => [1, 32, 12, 4, 3, 2, 1, 1, 3, 54, 21] 
+		3.2.2 : 187 > nums
+		 => [[1, 32, 12, 4], [3, 2], 1, 1, 3, 54, 21] 
+
+	32. array.flatten!
+		Flattens array in place. Returns nil if no modifications were made. (array contains no subarrays.)
+		
+		3.2.2 :188 > nums.flatten!
+		 => [1, 32, 12, 4, 3, 2, 1, 1, 3, 54, 21] 
+		3.2.2 :189 > nums
+		 => [1, 32, 12, 4, 3, 2, 1, 1, 3, 54, 21]
+	
+	33. array.frozen?
+		Returns true if array is frozen (or temporarily frozen while being sorted).
+
+		3.2.2 :190 > nums
+		 => [1, 32, 12, 4, 3, 2, 1, 1, 3, 54, 21] 
+		3.2.2 :191 > nums.frozen?
+		 => false
+
+	34. array.hash
+		Computes a hash-code for array. Two arrays with the same content will have the same hash code.
+		
+		3.2.2 :193 > nums
+		 => [1, 32, 12, 4, 3, 2, 1, 1, 3, 54, 21] 
+		3.2.2 :194 > nums.hash
+		 => -1814573711083090795 
+
+	35. array.include?(obj)
+		Returns true if obj is present in self, false otherwise.
+		
+		3.2.2 :196 > nums
+		 => [1, 32, 12, 4, 3, 2, 1, 1, 3, 54, 21] 
+		3.2.2 :197 > nums.include?(21)
+		 => true 
+		3.2.2 :198 > nums.include?(41)
+		 => false 
+	
+	36. array.index(obj)
+		Returns the index of the first object in self that is == to obj. Returns nil if no match is found.
+
+		3.2.2 :202 > nums
+		 => [1, 32, 12, 4, 3, 2, 1, 1, 3, 54, 21, 12] 
+		3.2.2 :203 > nums.index(12)
+		 => 2 
+
+	37. array.indexes(i1, i2, ... iN)
+		This methods is deprecated in latest version of Ruby so please use Array#values_at.
+
+		3.2.2 :204 > nums.indexes(1, 2, 3)
+		(irb):204:in `<main>': undefined method `indexes' for [1, 32, 12, 4, 3, 2, 1, 1, 3, 54, 21, 12]:Array (NoMethodError)                                  
+		Did you mean?  index                                                   
+        		from /home/beryl/.rvm/rubies/ruby-3.2.2/lib/ruby/gems/3.2.0/gems/irb-1.6.2/exe/irb:11:in `<top (required)>'                                    
+        		from /home/beryl/.rvm/rubies/ruby-3.2.2/bin/irb:31:in `load'   
+        		from /home/beryl/.rvm/rubies/ruby-3.2.2/bin/irb:31:in `<main>' 
+
+	38. array.indices(i1, i2, ... iN)
+		This methods is deprecated in latest version of Ruby so please use Array#values_at.
+
+		3.2.2 :205 > nums.indices(1, 2, 3)
+		(irb):205:in `<main>': undefined method `indices' for [1, 32, 12, 4, 3, 2, 1, 1, 3, 54, 21, 12]:Array (NoMethodError)
+		Did you mean?  index                                                   
+		        from /home/beryl/.rvm/rubies/ruby-3.2.2/lib/ruby/gems/3.2.0/gems/irb-1.6.2/exe/irb:11:in `<top (required)>'
+		        from /home/beryl/.rvm/rubies/ruby-3.2.2/bin/irb:31:in `load'   
+		        from /home/beryl/.rvm/rubies/ruby-3.2.2/bin/irb:31:in `<main>' 
+
+	39. array.insert(index, obj...)
+		Inserts the given values before the element with the given index (which may be negative).
+
+		3.2.2 :206 > nums
+		 => [1, 32, 12, 4, 3, 2, 1, 1, 3, 54, 21, 12] 
+		3.2.2 :207 > nums.insert(1, 23)
+		 => [1, 23, 32, 12, 4, 3, 2, 1, 1, 3, 54, 21, 12] 
+		3.2.2 :208 > nums.insert(-2, 31)
+		 => [1, 23, 32, 12, 4, 3, 2, 1, 1, 3, 54, 21, 31, 12] 
+
+	40. array.inspect
+		Creates a printable version of array.
+
+		3.2.2 :209 > nums.inspect
+		 => "[1, 23, 32, 12, 4, 3, 2, 1, 1, 3, 54, 21, 31, 12]" 
+
+	41. array.join(sep = $,)
+		Returns a string created by converting each element of the array to a string, separated by sep.
+
+		3.2.2 :210 > nums
+		 => [1, 23, 32, 12, 4, 3, 2, 1, 1, 3, 54, 21, 31, 12] 
+		3.2.2 :211 > nums.join(sep = $,)
+		 => "123321243211354213112" 
+		3.2.2 :212 > nums
+		 => [1, 23, 32, 12, 4, 3, 2, 1, 1, 3, 54, 21, 31, 12] 
+		3.2.2 :213 > nums.join(sep = " ",)
+		 => "1 23 32 12 4 3 2 1 1 3 54 21 31 12"
+
+	42. array.last [or] array.last(n)
+		Returns the last element(s) of self. If array is empty, the first form returns nil.
+
+		3.2.2 :214 > nums
+		 => [1, 23, 32, 12, 4, 3, 2, 1, 1, 3, 54, 21, 31, 12] 
+		3.2.2 :215 > nums.last
+		 => 12 
+		3.2.2 :216 > nums.last(5)
+		 => [3, 54, 21, 31, 12] 
+	43. array.length
+		Returns the number of elements in self. May be zero.
+
+		3.2.2 :217 > nums
+		 => [1, 23, 32, 12, 4, 3, 2, 1, 1, 3, 54, 21, 31, 12] 
+		3.2.2 :218 > nums.length
+		 => 14 
+
+	44. array.map { |item| block } [or] array.collect { |item| block }
+		Invokes block once for each element of self. Creates a new array containing the values returned by the block.
+
+		3.2.2 :219 > nums
+		 => [1, 23, 32, 12, 4, 3, 2, 1, 1, 3, 54, 21, 31, 12] 
+		3.2.2 :220 > nums.map {|item| item *= 2}
+		 => [2, 46, 64, 24, 8, 6, 4, 2, 2, 6, 108, 42, 62, 24]
+
+		3.2.2 :221 > nums.collect {|item| item *= 3}
+		 => [3, 69, 96, 36, 12, 9, 6, 3, 3, 9, 162, 63, 93, 36] 
+
+	45. array.map! { |item| block } [or] array.collect! { |item| block }
+		Invokes block once for each element of array, replacing the element with the value returned by block.
+
+		3.2.2 :222 > nums
+		 => [1, 23, 32, 12, 4, 3, 2, 1, 1, 3, 54, 21, 31, 12] 
+		3.2.2 :223 > nums.map! {|item| item *= 2}
+		 => [2, 46, 64, 24, 8, 6, 4, 2, 2, 6, 108, 42, 62, 24] 
+		3.2.2 :224 > nums.collect! {|item| item /= 2}
+		 => [1, 23, 32, 12, 4, 3, 2, 1, 1, 3, 54, 21, 31, 12] 
+		3.2.2 :225 > nums
+		 => [1, 23, 32, 12, 4, 3, 2, 1, 1, 3, 54, 21, 31, 12]
+
+	46. array.pop
+		Removes the last element from array and returns it, or nil if array is empty.
+
+		3.2.2 :237 > nums
+		 => [1, 23, nil, 3, nil, 21, 31, 12] 
+		3.2.2 :238 > nums.pop
+		 => 12 
+
+	47. array.push(obj, ...)
+		Pushes (appends) the given obj onto the end of this array. This expression returns the array itself, so several appends may be chained together.
+
+		3.2.2 :239 > nums
+		 => [1, 23, nil, 3, nil, 21, 31] 
+		3.2.2 :240 > nums.push(12, 13, 14)
+		 => [1, 23, nil, 3, nil, 21, 31, 12, 13, 14] 
+
+	48. array.rassoc(key)
+		Searches through the array whose elements are also arrays. Compares key with the second element of each contained array using ==. Returns the first contained array that matches.
+
+		3.2.2 :245 > num = [[1, 3, 4, 5], [3, 2, 1, 4], [4, 3, 6, 5], [5, 6, 3, 7]]
+		 => [[1, 3, 4, 5], [3, 2, 1, 4], [4, 3, 6, 5], [5, 6, 3, 7]] 
+		3.2.2 :246 > num.rassoc(3)
+		 => [1, 3, 4, 5] 
+
+	49. array.reject { |item| block }
+		Returns a new array containing the items array for which the block is not true.
+
+		3.2.2 :247 > nums
+		 => [1, 23, nil, 3, nil, 21, 31, 12, 13, 14] 
+		3.2.2 :248 > nums.reject {|item| item == nil}
+		 => [1, 23, 3, 21, 31, 12, 13, 14] 
+
+	50. array.reject! { |item| block }
+		Deletes elements from array for which the block evaluates to true, but returns nil if no changes were made. Equivalent to Array#delete_if.
+
+		3.2.2 :249 > nums
+		 => [1, 23, nil, 3, nil, 21, 31, 12, 13, 14] 
+		3.2.2 :250 > nums.reject! {|item| item == nil}
+		 => [1, 23, 3, 21, 31, 12, 13, 14] 
+		3.2.2 :251 > nums
+		 => [1, 23, 3, 21, 31, 12, 13, 14] 
