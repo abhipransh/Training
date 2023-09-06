@@ -659,3 +659,227 @@
 		 => [1, 23, 3, 21, 31, 12, 13, 14] 
 		3.2.2 :251 > nums
 		 => [1, 23, 3, 21, 31, 12, 13, 14] 
+
+	51. array.replace(other_array)
+		Replaces the contents of array with the contents of other_array, truncating or expanding if necessary.
+		
+		3.2.2 :003 > nums = Array(1..5)
+		 => [1, 2, 3, 4, 5] 
+		3.2.2 :004 > digits = Array(8..12)
+		 => [8, 9, 10, 11, 12] 
+		3.2.2 :005 > nums.replace(digits)
+		 => [8, 9, 10, 11, 12] 
+		3.2.2 :006 > nums
+		 => [8, 9, 10, 11, 12] 
+
+	52. array.reverse
+		Returns a new array containing array's elements in reverse order.
+
+		3.2.2 :007 > nums
+		 => [8, 9, 10, 11, 12] 
+		3.2.2 :008 > nums.reverse
+		 => [12, 11, 10, 9, 8] 
+		3.2.2 :009 > nums
+		 => [8, 9, 10, 11, 12] 
+
+	53. array.reverse!
+		Reverses array in place.
+
+		3.2.2 :010 > nums
+		 => [8, 9, 10, 11, 12] 
+		3.2.2 :011 > nums.reverse!
+		 => [12, 11, 10, 9, 8] 
+		3.2.2 :012 > nums
+		 => [12, 11, 10, 9, 8] 
+
+	54. array.reverse_each {|item| block }
+		Same as Array#each, but traverses array in reverse order.
+		
+		3.2.2 :013 > digits
+		 => [8, 9, 10, 11, 12] 
+		3.2.2 :014 > digits.reverse_each {|item| puts item}
+		12
+		11                                                                          
+		10                                                                          
+		9                                                                           
+		8                                                                           
+		 => [8, 9, 10, 11, 12]  
+	
+	55. array.rindex(obj)
+		Returns the index of the last object in array == to obj. Returns nil if no match is found.
+		
+		3.2.2 :015 > nums
+		 => [12, 11, 10, 9, 8] 
+		3.2.2 :016 > nums.rindex(9)
+		 => 3 
+
+	56. array.select {|item| block }
+		Invokes the block passing in successive elements from array, returning an array containing those elements for which the block returns a true value.
+
+		3.2.2 :017 > nums
+		 => [12, 11, 10, 9, 8] 
+		3.2.2 :018 > nums.select {|item| item%2==0}
+		 => [12, 10, 8] 
+
+
+	57. array.shift
+		Returns the first element of self and removes it (shifting all other elements down by one). Returns nil if the array is empty.
+
+		3.2.2 :019 > nums
+		 => [12, 11, 10, 9, 8] 
+		3.2.2 :020 > nums.shift
+		 => 12 
+		3.2.2 :021 > nums
+		 => [11, 10, 9, 8] 
+
+	58. array.size
+		Returns the length of array (number of elements). Alias for length.
+		
+		3.2.2 :022 > nums
+		 => [11, 10, 9, 8] 
+		3.2.2 :023 > nums.size
+		 => 4 
+
+	59. array.slice(index) [or] array.slice(start, length) [or] array.slice(range) [or] array[index] [or] array[start, length] [or] array[range]
+
+		Returns the element at index, or returns a subarray starting at start and continuing for length elements, or returns a subarray specified by range. 
+		Negative indices count backward from the end of the array (-1 is the last element). Returns nil if the index (or starting index) are out of range.
+
+		3.2.2 :024 > nums
+		 => [11, 10, 9, 8] 
+		3.2.2 :025 > nums.slice(2)
+		 => 9 
+		3.2.2 :026 > nums.slice(1, 3)
+		 => [10, 9, 8] 
+		3.2.2 :027 > nums.slice(1..3)
+		 => [10, 9, 8] 
+		3.2.2 :028 > nums[3]
+		 => 8 
+		3.2.2 :029 > nums[1, 2]
+		 => [10, 9] 
+		3.2.2 :030 > nums[1..3]
+		 => [10, 9, 8] 
+
+	60. array.slice!(index) [or] array.slice!(start, length) [or] array.slice!(range)
+		Deletes the element(s) given by an index (optionally with a length) or by a range. Returns the deleted object, subarray, or nil if index is out of range.
+
+		3.2.2 :031 > nums
+		 => [11, 10, 9, 8] 
+		3.2.2 :032 > nums.slice!(3)
+		 => 8 
+		3.2.2 :033 > nums
+		 => [11, 10, 9] 
+		3.2.2 :034 > nums.slice!(0, 2)
+		 => [11, 10] 
+		3.2.2 :035 > nums
+		 => [9] 
+		3.2.2 :036 > nums << 4 << 5 << 8
+		 => [9, 4, 5, 8] 
+		3.2.2 :037 > nums.slice!(0..3)
+		 => [9, 4, 5, 8] 
+		3.2.2 :038 > nums
+		 => [] 
+
+	61. array.sort [or] array.sort { | a,b | block }
+		Returns a new array created by sorting self.
+
+		3.2.2 :042 > nums
+		 => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 
+		3.2.2 :043 > nums.sort
+		 => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 
+
+	62. array.sort_by {|str| block}
+		Returns a new array by sorting self according to given block.		
+
+		3.2.2 :061 > strings = ["ab", "bar", "zoo", "igloo", "koo"]
+		 => ["ab", "bar", "zoo", "igloo", "koo"] 
+		3.2.2 :064 > strings.sort_by {|s| s.length}
+		 => ["ab", "bar", "zoo", "koo", "igloo"] 
+	
+	63. array.sort! [or] array.sort! { | a,b | block }
+		Sorts self in place.
+
+		3.2.2 :071 > nums
+		 => [2, 3, 4, 5, 5, 3, 7, 8, 9, 10, 5] 
+		3.2.2 :072 > nums.sort!
+		 => [2, 3, 3, 4, 5, 5, 5, 7, 8, 9, 10] 
+		3.2.2 :073 > nums
+		 => [2, 3, 3, 4, 5, 5, 5, 7, 8, 9, 10]
+
+	64. array.to_a
+		Returns self. If called on a subclass of Array, converts the receiver to an Array object.
+
+		3.2.2 :091 > b = nums.to_a
+	 	=> [2, 3, 3, 4, 5, 5, 5, 7, 8, 9, 10] 
+		3.2.2 :092 > b
+		 => [2, 3, 3, 4, 5, 5, 5, 7, 8, 9, 10] 
+
+
+	65. array.to_ary
+		Returns self.
+		
+		3.2.2 :080 > nums
+		 => [2, 3, 3, 4, 5, 5, 5, 7, 8, 9, 10] 
+		3.2.2 :081 > nums.to_ary
+		 => [2, 3, 3, 4, 5, 5, 5, 7, 8, 9, 10] 
+
+
+	66. array.to_s
+		Returns self.join.
+
+		3.2.2 :077 > a
+		 => [2, 3, 3, 4, 5, 5, 5, 7, 8, 9, 10] 
+		3.2.2 :079 > a.to_s
+		 => "[2, 3, 3, 4, 5, 5, 5, 7, 8, 9, 10]" 
+
+	67. array.transpose
+		Assumes that self is an array of arrays and transposes the rows and columns.
+
+		3.2.2 :093 > matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+		 => [[1, 2, 3], [4, 5, 6], [7, 8, 9]] 
+		3.2.2 :094 > matrix.transpose
+		 => [[1, 4, 7], [2, 5, 8], [3, 6, 9]] 
+
+	68. array.uniq
+		Returns a new array by removing duplicate values in array.
+
+		3.2.2 :095 > nums
+		 => [2, 3, 3, 4, 5, 5, 5, 7, 8, 9, 10] 
+		3.2.2 :096 > nums.uniq
+		 => [2, 3, 4, 5, 7, 8, 9, 10] 
+	
+	69. array.uniq!
+		Removes duplicate elements from self. Returns nil if no changes are made (that is, no duplicates are found).
+
+		3.2.2 :097 > nums
+		 => [2, 3, 3, 4, 5, 5, 5, 7, 8, 9, 10] 
+		3.2.2 :098 > nums.uniq!
+		 => [2, 3, 4, 5, 7, 8, 9, 10] 
+
+	70. array.unshift(obj, ...)
+		Prepends objects to the front of array, other elements up one.
+
+		3.2.2 :099 > nums
+		 => [2, 3, 4, 5, 7, 8, 9, 10] 
+		3.2.2 :100 > nums.unshift(4)
+		 => [4, 2, 3, 4, 5, 7, 8, 9, 10] 
+
+	71. array.values_at(selector,...)
+		Returns an array containing the elements in self corresponding to the given selector (one or more). The selectors may be either integer indices or ranges.
+
+		3.2.2 :101 > nums.values_at(3)
+		 => [4] 
+		3.2.2 :102 > nums.values_at(3..6)
+		 => [4, 5, 7, 8] 
+		
+	72. array.zip(arg, ...) [or] array.zip(arg, ...){ | arr | block }
+		Converts any arguments to arrays, then merges elements of array with corresponding elements from each argument.
+
+		3.2.2 :107 > a = [1, 2, 3, 4]
+		 => [1, 2, 3, 4] 
+		3.2.2 :108 > b = [5, 6, 7, 8]
+		 => [5, 6, 7, 8] 
+		3.2.2 :109 > c = [9, 10, 11, 12]
+		 => [9, 10, 11, 12] 
+		3.2.2 :110 > a.zip(b, c)
+		 => [[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]] 
