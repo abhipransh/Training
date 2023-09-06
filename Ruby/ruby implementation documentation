@@ -883,3 +883,400 @@
 		 => [9, 10, 11, 12] 
 		3.2.2 :110 > a.zip(b, c)
 		 => [[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]] 
+
+3. Create a string
+	new(string = '', **opts) → new_string 
+
+	1. s = String.new
+		Returns a new String that is a copy of string. With no arguments, returns the empty string with the Encoding ASCII-8BIT:
+
+		3.2.2 :111 > s = String.new
+		 => "" 
+		3.2.2 :112 > s
+		 => "" 
+		3.2.2 :113 > s.encoding
+		 => #<Encoding:ASCII-8BIT> 
+
+	2. String.new('str')
+		With optional argument string and no keyword arguments, returns a copy of string with the same encoding:
+		
+		3.2.2 :114 > String.new('new string')
+		 => "new string"
+
+		(Unlike String.new, a string literal like '' or a here document literal always has script encoding.)
+
+	3. String.new('str', encoding: 'ASCII').encoding 
+		With optional keyword argument encoding, returns a copy of string with the specified encoding; 
+		the encoding may be an Encoding object, an encoding name, or an encoding name alias:
+
+		3.2.2 :115 > String.new('new string', encoding: 'ASCII').encoding 
+		 => #<Encoding:US-ASCII> 
+
+		The given encoding need not be valid for the string’s content, and that validity is not checked:
+
+		3.2.2 :116 > s = String.new('掲ぱばトほ', encoding: 'ascii')
+		 => "\xE6\x8E\xB2\xE3\x81\xB1\xE3\x81\xB0\xE3\x83\x88\xE3\x81\xBB" 
+		3.2.2 :117 > s.valid_encoding?
+		 => false 
+
+		But the given encoding itself is checked:		
+
+		3.2.2 :118 > String.new('new string', encoding: 'bar')
+		(irb):118:in `initialize': unknown encoding name - bar (ArgumentError)
+
+
+	4. String.new(capacity: 1)
+		With optional keyword argument capacity, returns a copy of string (or an empty string, if string is not given); 
+		the given capacity is advisory only, and may or may not set the size of the internal buffer, which may in turn affect performance:
+
+		3.2.2 :119 > s = String.new(capacity: 2)
+		 => "" 
+		3.2.2 :120 > s
+		 => "" 
+		
+		The string, encoding, and capacity arguments may all be used together:
+
+		3.2.2 :121 > s = String.new('hello', encoding: 'UTF-8', capacity: 10)
+		 => "hello" 
+
+	5. s = 'str'
+		string literal
+		
+		3.2.2 :122 > s = 'Hello'
+		 => "Hello" 
+
+4. Public String methods ( Assuming str is a String object )
+
+	1. string % object → new_string
+		Returns the result of formatting object into the format specification self. 
+		If self contains multiple substitutions, object must be an Array or Hash containing the values to be substituted: 
+		
+		3.2.2 :124 > "fun = %{fun}, baz = %{baz}" % {fun: 'bar', baz: 'bat'}
+		 => "fun = bar, baz = bat" 
+
+	2. string * integer → new_string 
+		Returns a new String containing integer copies of self:
+
+		3.2.2 :126 > s*5
+		 => "HelloHelloHelloHelloHello" 
+
+	3. string + other_string → new_string
+		Returns a new String containing other_string concatenated to self:
+
+		3.2.2 :133 > s
+		 => "Hello" 
+		3.2.2 :134 > t
+		 => "How are you?" 
+		3.2.2 :135 > s + t
+		 => "HelloHow are you?" 
+
+	4. +string → new_string or self click to toggle source
+		Returns self if self is not frozen. Otherwise returns self.dup, which is not frozen.
+
+	5. -string → frozen_string
+		Returns a frozen, possibly pre-existing copy of the string. The returned String will be deduplicated as long as it does not have any instance variables
+		set on it and is not a String subclass. String#dedup is an alias for String#-@.
+
+	6. string << object → string
+		Concatenates object to self and returns self. If object is an Integer, the value is considered a codepoint and converted to a character before concatenation:
+		Related: String#concat, which takes multiple arguments.
+
+		3.2.2 :137 > s
+		 => "Hello" 
+		3.2.2 :138 > s << "I am Abhi"
+		 => "HelloI am Abhi" 
+		3.2.2 :139 > s << 23
+		 => "HelloI am Abhi\u0017" 
+		3.2.2 :140 > s << 65
+		 => "HelloI am Abhi\u0017A" 
+
+	7. string <=> other_string → -1, 0, 1, or nil
+		Compares self and other_string, returning -1 if other_string is larger. 0 if the two are equal. 1 if other_string is smaller. nil if the two are incomparable.
+
+		3.2.2 :142 > s = "Hello"
+		 => "Hello" 
+		3.2.2 :143 > t = "hello"
+		 => "hello" 
+		3.2.2 :144 > s <=> t
+		 => -1 
+				
+		3.2.2 :145 > t <=> s
+		 => 1 
+		
+		3.2.2 :146 > t = "Hello"
+		 => "Hello" 
+		3.2.2 :147 > s <=> t
+		 => 0 
+
+	8. string == object → true or false [OR] string === object → true or false
+
+		Returns true if object has the same length and content; as self; false otherwise: 
+		Returns false if the two strings’ encodings are not compatible:
+		If object is not an instance of String but responds to to_str, then the two strings are compared using object.==.
+
+		3.2.2 :148 > s
+		 => "Hello" 
+		3.2.2 :149 > t
+		 => "Hello" 
+		3.2.2 :150 > s == t
+		 => true 
+		3.2.2 :151 > s === t
+		 => true 
+		3.2.2 :152 > s = "hello"
+		 => "hello" 
+		3.2.2 :153 > s == t
+		 => false 
+		3.2.2 :154 > s === t
+		 => false 
+
+	9. string =~ regexp → integer or nil [OR] string =~ object → integer or nil
+		Returns the Integer index of the first substring that matches the given regexp, or nil if no match found:
+		Note: also updates Special global variables at Regexp.
+		If the given object is not a Regexp, returns the value returned by object =~ self.
+		Note that string =~ regexp is different from regexp =~ string (see Regexp#=~):
+
+		3.2.2 :155 > s
+		 => "hello" 
+		3.2.2 :156 > s =~ /h/
+		 => 0 
+		3.2.2 :157 > s =~ /l/
+		 => 2 
+		3.2.2 :158 > s =~ /i/
+		 => nil 
+
+	10. string[index] → new_string or nil [OR] string[start, length] → new_string or nil [OR] string[range] → new_string or nil [OR] string[regexp, capture = 0] → new_string or nil 
+	     [OR] string[substring] → new_string or nil
+		Returns the substring of self specified by the arguments.
+
+		3.2.2 :159 > s
+		 => "hello" 
+		3.2.2 :160 > s[2]
+		 => "l" 
+		3.2.2 :161 > s[10]
+		 => nil 
+		3.2.2 :162 > s[1, 3]
+		 => "ell" 
+		3.2.2 :165 > s[2..4]
+		 => "llo" 
+		3.2.2 :166 > s[/l/]
+		 => "l" 
+		3.2.2 :167 > s['ll']
+		 => "ll" 
+
+	11. ascii_only? → true or false
+		Returns true if self contains only ASCII characters, false otherwise:
+
+		3.2.2 :001 > s = 'Hello'
+		 => "Hello" 
+		3.2.2 :002 > s.ascii_only?
+		 => true 
+
+	12. b → string
+		Returns a copy of self that has ASCII-8BIT encoding; the underlying bytes are not modified:
+
+		3.2.2 :003 > s.encoding
+		 => #<Encoding:UTF-8> 
+		3.2.2 :004 > t = s.b
+		 => "Hello" 
+		3.2.2 :005 > t.encoding
+		 => #<Encoding:ASCII-8BIT>  
+		3.2.2 :007 > s.encoding
+		 => #<Encoding:UTF-8> 
+		
+	13. byteindex(substring, offset = 0) → integer or nil [OR] byteindex(regexp, offset = 0) → integer or nil
+		Returns the Integer byte-based index of the first occurrence of the given substring, or nil if none found:
+
+		3.2.2 :008 > s
+		 => "Hello" 
+		3.2.2 :009 > s.byteindex('e')
+		 => 1 
+		3.2.2 :010 > s.byteindex('ell')
+		 => 1 
+		3.2.2 :011 > s.byteindex('oo')
+		 => nil 
+
+		Returns the Integer byte-based index of the first match for the given Regexp regexp, or nil if none found:
+	
+		3.2.2 :012 > s.byteindex(/el/)
+		 => 1 
+
+		Integer argument offset, if given, specifies the byte-based position in the string to begin the search:
+		
+		3.2.2 :013 > s
+		 => "Hello" 
+		3.2.2 :014 > s.byteindex('o', 2)
+		 => 4 
+		
+		If offset is negative, counts backward from the end of self:
+		
+		3.2.2 :015 > s.byteindex('o', -2)
+		 => 4 
+
+		If offset does not land on character (codepoint) boundary, IndexError is raised.
+		Related: String#index, String#byterindex.
+
+	14. byterindex(substring, offset = self.bytesize) → integer or nil [OR] byterindex(regexp, offset = self.bytesize) → integer or nil
+		Returns the Integer byte-based index of the last occurrence of the given substring, or nil if none found:
+
+		3.2.2 :016 > s
+		 => "Hello" 
+		3.2.2 :017 > s.byterindex('H')
+		 => 0 
+
+		Returns the Integer byte-based index of the last match for the given Regexp regexp, or nil if none found:
+
+		3.2.2 :018 > s
+		 => "Hello" 
+		3.2.2 :019 > s.byterindex(/e/)
+		 => 1 
+
+		The last match means starting at the possible last position, not the last of longest matches.
+
+		3.2.2 :020 > s.byterindex(/l+/)
+		 => 3 
+
+		If offset does not land on character (codepoint) boundary, IndexError is raised.
+		Related: String#byteindex.
+
+	15. bytes → array_of_bytes
+		Returns an array of the bytes in self:
+
+		3.2.2 :021 > s
+		 => "Hello" 
+		3.2.2 :022 > s.bytes
+		 => [72, 101, 108, 108, 111] 
+
+	16. bytesize → integer
+		Returns the count of bytes (not characters) in self:
+
+		3.2.2 :023 > s
+		 => "Hello" 
+		3.2.2 :024 > s.bytesize
+		 => 5 
+
+	17. bytesplice(index, length, str) → string [OR] bytesplice(range, str) → string
+		Replaces some or all of the content of self with str, and returns self. The portion of the string affected is determined using the same criteria as String#byteslice, 
+		except that length cannot be omitted. If the replacement string is not the same length as the text it is replacing, the string will be adjusted accordingly. 
+		The form that take an Integer will raise an IndexError if the value is out of range; the Range form will raise a RangeError. 
+		If the beginning or ending offset does not land on character (codepoint) boundary, an IndexError will be raised.
+
+	18. capitalize(*options) → string
+		Returns a string containing the characters in self; the first character is upcased; the remaining characters are downcased:
+		
+		3.2.2 :025 > s = 'hello'
+		 => "hello" 
+		3.2.2 :026 > s.capitalize
+		 => "Hello" 
+		3.2.2 :027 > s
+		 => "hello" 
+
+	19. capitalize!(*options) → self or nil
+		Upcases the first character in self; downcases the remaining characters; returns self if any changes were made, nil otherwise:
+
+		3.2.2 :029 > s
+		 => "hello" 
+		3.2.2 :030 > s.capitalize!
+		 => "Hello" 
+		3.2.2 :031 > s
+		 => "Hello" 
+
+	20. casecmp(other_string) → -1, 0, 1, or nil
+		Compares self.downcase and other_string.downcase; returns:-1 if other_string.downcase is larger. 0 if the two are equal. 1 if other_string.downcase is smaller. 
+		nil if the two are incomparable.
+
+		3.2.2 :046 > s
+		 => "hell" 
+		3.2.2 :047 > t
+		 => "helloo" 
+		3.2.2 :048 > s.casecmp(t)
+		 => -1 
+		3.2.2 :049 > s << 'ooo'
+		 => "hellooo" 
+		3.2.2 :050 > s.casecmp(t)
+		 => 1 
+		3.2.2 :051 > s = 'hello'
+		 => "hello" 
+		3.2.2 :052 > t = 'hello'
+		 => "hello" 
+		3.2.2 :053 > s.casecmp(t)
+		 => 0
+
+	21. casecmp?(other_string) → true, false, or nil 
+		Returns true if self and other_string are equal after Unicode case folding, otherwise false, Returns nil if the two values are incomparable.
+
+		3.2.2 :054 > s.casecmp?(t)
+		 => true 
+		3.2.2 :055 > t << 'o'
+		 => "helloo" 
+		3.2.2 :056 > s.casecmp?(t)
+		 => false 
+		3.2.2 :057 > s.casecmp?(1)
+		 => nil 
+
+	22. center(size, pad_string = ' ') → new_string
+		Returns a centered copy of self. If integer argument size is greater than the size (in characters) of self, returns a new string of length size that is a copy of self, 
+		centered and padded on both ends with pad_string. If size is not greater than the size of self, returns a copy of self:
+
+		3.2.2 :058 > s
+		 => "hello" 
+		3.2.2 :059 > s.center(10)
+		 => "  hello   " 
+		3.2.2 :060 > s.center(4)
+		 => "hello" 
+
+	23. chars → array_of_characters
+		Returns an array of the characters in self:
+
+		3.2.2 :061 > s
+		 => "hello" 
+		3.2.2 :062 > s.chars
+		 => ["h", "e", "l", "l", "o"] 
+
+	24. chomp(line_sep = $/) → new_string
+		Returns a new string copied from self, with trailing characters possibly removed:
+
+		3.2.2 :079 > s = "hello"
+		 => "hello" 
+		3.2.2 :080 > s.center(20)
+		 => "       hello        " 
+		3.2.2 :081 > s.chomp
+		 => "hello" 
+	
+	25. chomp!(line_sep = $/) → self or nil
+		Like String#chomp, but modifies self in place; returns nil if no modification made, self otherwise.
+		
+	26. chop → new_string 
+		Returns a new string copied from self, with trailing characters possibly removed. Removes "\r\n" if those are the last two characters. 
+		Otherwise removes the last character if it exists. If you only need to remove the newline separator at the end of the string, String#chomp is a better alternative.
+	
+		3.2.2 :085 > "abc\r\n".chop
+		 => "abc" 
+		3.2.2 :093 > s.chop
+		 => "hell" 
+
+	27. chop! → self or nil
+		Like String#chop, but modifies self in place; returns nil if self is empty, self otherwise.
+
+	28. chr → string
+		Returns a string containing the first character of self:
+		
+		3.2.2 :094 > s
+		 => "hello" 
+		3.2.2 :095 > s.chr
+		 => "h" 
+
+	29. clear → self
+		Removes the contents of self:
+
+		3.2.2 :096 > s
+		 => "hello" 
+		3.2.2 :097 > s.clear
+		 => ""
+
+	30. codepoints → array_of_integers
+		Returns an array of the codepoints in self; each codepoint is the integer value for a character:
+
+		3.2.2 :099 > s = 'hello'
+		 => "hello" 
+		3.2.2 :100 > s.codepoints
+		 => [104, 101, 108, 108, 111] 
