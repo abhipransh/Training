@@ -1280,3 +1280,516 @@
 		 => "hello" 
 		3.2.2 :100 > s.codepoints
 		 => [104, 101, 108, 108, 111] 
+
+	31. concat(*objects) → string
+		Concatenates each object in objects to self and returns self:
+
+		3.2.2 :001 > s = 'Hello'
+		 => "Hello" 
+		3.2.2 :002 > s.concat('hi', 'hill')
+		 => "Hellohihill" 
+
+		For each given object object that is an Integer, the value is considered a codepoint and converted to a character before concatenation:
+
+		3.2.2 :003 > s.concat(32, 'bar', 32, 'baz')
+		 => "Hellohihill bar baz" 
+
+	32. count(*selectors) → integer
+		Returns the total number of characters in self that are specified by the given selectors
+
+		3.2.2 :012 > s = 'hello world'
+		 => "hello world" 
+		3.2.2 :013 > s.count('lo')
+		 => 5 
+
+	33. delete(*selectors) → new_string
+		Returns a copy of self with characters specified by selectors removed 
+
+		3.2.2 :014 > s
+		 => "hello world" 
+		3.2.2 :015 > s.delete('lo')
+		 => "he wrd" 
+		
+	34. delete!(*selectors) → self or nil
+		Like String#delete, but modifies self in place. Returns self if any changes were made, nil otherwise.
+
+	35. delete_prefix(prefix) → new_string
+		Returns a copy of self with leading substring prefix removed:
+
+		3.2.2 :016 > s
+		 => "hello world" 
+		3.2.2 :017 > s.delete_prefix('he')
+		 => "llo world" 
+
+	36. delete_prefix!(prefix) → self or nil
+		Like String#delete_prefix, except that self is modified in place. Returns self if the prefix is removed, nil otherwise.
+
+	37. delete_suffix(suffix) → new_string
+		Returns a copy of self with trailing substring suffix removed:
+
+		3.2.2 :018 > s
+		 => "hello world" 
+		3.2.2 :020 > s.delete_suffix('ld')
+		 => "hello wor" 
+
+	38. delete_suffix!(suffix) → self or nil
+		Like String#delete_suffix, except that self is modified in place. Returns self if the suffix is removed, nil otherwise.
+
+	39. downcase(*options) → string
+		Returns a string containing the downcased characters in self:
+
+		3.2.2 :022 > s = 'HeLLo WorLD!'
+		 => "HeLLo WorLD!" 
+		3.2.2 :023 > s.downcase
+		 => "hello world!" 
+	
+	40. downcase!(*options) → self or nil
+		Downcases the characters in self; returns self if any changes were made, nil otherwise:
+
+		3.2.2 :024 > s
+		 => "HeLLo WorLD!" 
+		3.2.2 :025 > s.downcase!
+		 => "hello world!" 
+
+	41. dump → string
+		Returns a printable version of self, enclosed in double-quotes, with special characters escaped, and with non-printing characters replaced by hexadecimal notation:
+
+		3.2.2 :026 > s
+		 => "hello world!" 
+		3.2.2 :027 > s.dump
+		 => "\"hello world!\"" 
+
+	42. each_byte {|byte| ... } → self [OR] each_byte → enumerator
+		Calls the given block with each successive byte from self; returns self:
+
+		3.2.2 :033 > s
+		 => "hello world!" 
+		3.2.2 :034 > s.each_byte {|byte| print byte, ' '}
+		104 101 108 108 111 32 119 111 114 108 100 33  => "hello world!" 
+
+	43. each_char {|c| ... } → self [OR] each_char → enumerator
+		Calls the given block with each successive character from self; returns self:
+
+		3.2.2 :035 > s
+		 => "hello world!" 
+		3.2.2 :037 > s.each_char {|char| print char, ' ' }
+		h e l l o   w o r l d !  => "hello world!
+
+	44. each_codepoint {|integer| ... } → self [OR] each_codepoint → enumerator
+		Calls the given block with each successive codepoint from self; each codepoint is the integer value for a character; returns self:
+
+		3.2.2 :038 > s
+		 => "hello world!" 
+		3.2.2 :039 > s.each_codepoint {|codepoint| print codepoint, ' '}
+		104 101 108 108 111 32 119 111 114 108 100 33  => "hello world!" 
+
+	45. each_line(line_sep = $/, chomp: false) {|substring| ... } → self [OR] each_line(line_sep = $/, chomp: false) → enumerator
+		With a block given, forms the substrings (“lines”) that are the result of splitting self at each occurrence of the given line separator line_sep; 
+		passes each line to the block; returns self:
+
+		3.2.2 :054 > s = "This is the first line.\nThis is the second line.\nThis is line three.\nThis is line four."
+		 => "This is the first line.\nThis is the second line.\nThis is line three.\nThis is line four." 
+		3.2.2 :055 > print s
+		This is the first line.
+		This is the second line.                                                                                                                      
+		This is line three.                                                                                                                           
+		This is line four. => nil                                                                                                                     
+		3.2.2 :056 > s.each_line(' is ')
+		 => #<Enumerator: ...> 
+		3.2.2 :057 > s.each_line(' is ') {|line| p line}
+		"This is "
+		"the first line.\nThis is "                                              
+		"the second line.\nThis is "                                             
+		"line three.\nThis is "                                                  
+		"line four."                                                             
+		 => "This is the first line.\nThis is the second line.\nThis is line three.\nThis is line four." 
+
+		3.2.2 :058 > s.each_line(' is ', chomp: true) {|line| p line}
+		"This"
+		"the first line.\nThis"                                                  
+		"the second line.\nThis"                                                 
+		"line three.\nThis"                                                      
+		"line four."                                                             
+		 => "This is the first line.\nThis is the second line.\nThis is line three.\nThis is line four." 
+
+	46. empty? → true or false
+		Returns true if the length of self is zero, false otherwise:
+
+		3.2.2 :060 > s = "Hello"
+		 => "Hello" 
+		3.2.2 :061 > s.empty?
+		 => false 
+		3.2.2 :062 > s.clear
+		 => "" 
+		3.2.2 :063 > s.empty?
+		 => true 
+
+	47. encoding → encoding
+		Returns the Encoding object that represents the encoding of obj.
+
+		3.2.2 :066 > s
+		 => "Hello" 
+		3.2.2 :067 > s.encoding
+		 => #<Encoding:UTF-8> 
+
+	48. end_with?(*strings) → true or false
+		Returns whether self ends with any of the given strings. Returns true if any given string matches the end, false otherwise:
+
+		3.2.2 :068 > s
+		 => "Hello" 
+		3.2.2 :069 > s.end_with?('llo')
+		 => true 
+		3.2.2 :070 > s.end_with?('lla')
+		 => false 
+
+	49. eql?(object) → true or false
+		Returns true if object has the same length and content; as self; false otherwise. Returns false if the two strings’ encodings are not compatible:
+
+		3.2.2 :071 > s
+		 => "Hello" 
+		3.2.2 :072 > s.eql?('Hello')
+		 => true 
+		3.2.2 :073 > s.eql?('Hell')
+		 => false 
+
+	50. force_encoding(encoding) → self
+		Changes the encoding of self to encoding, which may be a string encoding name or an Encoding object; returns self. Does not change the underlying bytes:
+		Makes the change even if the given encoding is invalid for self:
+
+		3.2.2 :074 > s
+		 => "Hello" 
+		3.2.2 :075 > s.encoding
+		 => #<Encoding:UTF-8> 
+		3.2.2 :076 > s.force_encoding('ascii')
+		 => "Hello" 
+		3.2.2 :077 > s.encoding
+		 => #<Encoding:US-ASCII> 
+
+	51. freeze()
+		Freezes the string
+
+		3.2.2 :092 > s
+		 => "hi" 
+		3.2.2 :093 > s.frozen?
+		 => false 
+		3.2.2 :094 > s.freeze
+		 => "hi" 
+		3.2.2 :095 > s.frozen?
+		 => true 
+	
+	52. getbyte(index) → integer or nil
+		Returns the byte at zero-based index as an integer, or nil if index is out of range:
+
+		3.2.2 :096 > s
+		 => "hi" 
+		3.2.2 :097 > s.getbyte(0)
+		 => 104 
+
+	53. gsub(pattern, replacement) → new_string [OR] gsub(pattern) {|match| ... } → new_string [OR] gsub(pattern) → enumerator
+		Returns a copy of self with all occurrences of the given pattern replaced.
+
+		3.2.2 :099 > s = 'Hello'
+		 => "Hello" 
+		3.2.2 :100 > s.gsub(/[aeiou]/, '*')
+		 => "H*ll*"
+
+	54. gsub!(pattern, replacement) → self or nil [OR] gsub!(pattern) {|match| ... } → self or nil [OR] gsub!(pattern) → an_enumerator
+		Performs the specified substring replacement(s) on self; returns self if any replacement occurred, nil otherwise.
+
+		3.2.2 :101 > s = 'Hello'
+		 => "Hello" 
+		3.2.2 :102 > s.gsub!(/[aeiou]/, '*')
+		 => "H*ll*" 
+
+	55. hash → integer
+		Returns the integer hash value for self. The value is based on the length, content and encoding of self.
+		
+		3.2.2 :103 > s
+		 => "H*ll*" 
+		3.2.2 :104 > s.hash
+		 => -3688621146140924568 
+
+	56. hex → integer
+		Interprets the leading substring of self as a string of hexadecimal digits (with an optional sign and an optional 0x) and returns the corresponding number; 
+		returns zero if there is no such leading substring:
+
+		3.2.2 :109 > s = 'a'
+		 => "a" 
+		3.2.2 :110 > s.hex
+		 => 10 
+
+	57. include? other_string → true or false
+		Returns true if self contains other_string, false otherwise:
+
+		3.2.2 :117 > s = "Hello"
+		 => "Hello" 
+		3.2.2 :118 > s.include?('lo')
+		 => true 
+
+	58. index(substring, offset = 0) → integer or nil [OR] index(regexp, offset = 0) → integer or nil
+		Returns the integer index of the first match for the given argument, or nil if none found; the search of self is forward, and begins at position offset (in characters).
+		With string argument substring, returns the index of the first matching substring in self:
+
+		3.2.2 :119 > s
+		 => "Hello" 
+		3.2.2 :120 > s.index('l')
+		 => 2 
+		3.2.2 :121 > s.index(/e./)
+		 => 1 
+		3.2.2 :122 > s.index(/.e/)
+		 => 0 
+		3.2.2 :123 > s.index('l', 4)
+		 => nil 
+		3.2.2 :124 > s.index('l', 2)
+		 => 2 
+
+	59. initialize_copy(other_string) -> self
+		Replaces the contents of self with the contents of other_string:
+
+		3.2.2 :126 > s
+		 => "Hello" 
+		3.2.2 :127 > s.replace('bar')
+		 => "bar" 
+		3.2.2 :128 > s
+		 => "bar" 
+
+	60. insert(index, other_string) → self
+		Inserts the given other_string into self; returns self. If the Integer index is positive, inserts other_string at offset index:
+
+		3.2.2 :128 > s
+		 => "bar" 
+		3.2.2 :129 > s.insert(1, 'ih')
+		 => "bihar"
+
+	61. inspect → string
+		Returns a printable version of self, enclosed in double-quotes, and with special characters escaped:
+
+		3.2.2 :130 > s
+		 => "bihar" 
+		3.2.2 :131 > s.inspect
+		 => "\"bihar\"" 
+
+	62. intern → symbol
+		Returns the Symbol corresponding to str, creating the symbol if it did not previously exist. Also aliased as: to_sym
+
+		3.2.2 :133 > s.intern
+		 => :bihar 
+		3.2.2 :134 > s == :bihar
+		 => false 
+		3.2.2 :135 > s = 'cat'.to_sym
+		 => :cat 
+		3.2.2 :136 > s == :cat
+		 => true 
+
+	63. length → integer
+		Returns the count of characters (not bytes) in self. Also aliased as: size
+
+		3.2.2 :138 > s = "Hello World"
+		 => "Hello World" 
+		3.2.2 :139 > s.length
+		 => 11 
+
+	64. lines(Line_sep = $/, chomp: false) → array_of_strings
+		Forms substrings (“lines”) of self according to the given arguments; returns the lines in an array. String#each_line 
+
+	65. ljust(size, pad_string = ' ') → new_string
+		Returns a left-justified copy of self. If integer argument size is greater than the size (in characters) of self, 
+		returns a new string of length size that is a copy of self, left justified and padded on the right with pad_string. 
+		If size is not greater than the size of self, returns a copy of self.
+
+		3.2.2 :143 > s = "Hello World"
+		 => "Hello World" 
+		3.2.2 :144 > s.ljust(20)
+		 => "Hello World         " 
+
+	66. lstrip → new_string
+		Returns a copy of self with leading whitespace removed; see Whitespace in Strings:
+
+	67. lstrip! → self or nil
+		Like String#lstrip, except that any modifications are made in self; returns self if any modification are made, nil otherwise.
+
+	68. match(pattern, offset = 0) → matchdata or nil [OR] match(pattern, offset = 0) {|matchdata| ... } → object
+		Returns a MatchData object (or nil) based on self and the given pattern.
+
+		3.2.2 :151 > s = "Hello World"
+		 => "Hello World" 
+		3.2.2 :152 > s.match('e')
+		 => #<MatchData "e"> 
+
+	69. match?(pattern, offset = 0) → true or false
+		Returns true or false based on whether a match is found for self and pattern.
+
+		3.2.2 :153 > s
+		 => "Hello World" 
+		3.2.2 :154 > s.match?('l')
+		 => true 
+
+	70. next()
+		Returns the successor to self. The successor is calculated by incrementing characters. Alias for: succ
+
+		3.2.2 :155 > s
+ 		=> "Hello World" 
+		3.2.2 :156 > s.succ
+		 => "Hello Worle" 
+
+	71. next!()
+		Equivalent to String#succ, but modifies self in place; returns self.
+		String#next! is an alias for String#succ!.
+
+	72. oct → integer
+		Interprets the leading substring of self as a string of octal digits (with an optional sign) and returns the corresponding number; 
+		returns zero if there is no such leading substring:
+
+		3.2.2 :158 > '123'.oct
+		 => 83
+
+	73. ord → integer
+		Returns the integer ordinal of the first character of self:
+
+		3.2.2 :159 > s
+		 => "Hello World" 
+		3.2.2 :160 > s.ord
+		 => 72 
+		3.2.2 :161 > "H".ord
+		 => 72 
+
+	74. partition(string_or_regexp) → [head, match, tail]
+		Returns a 3-element array of substrings of self. Matches a pattern against self, scanning from the beginning.
+
+		3.2.2 :162 > s
+		 => "Hello World" 
+		3.2.2 :163 > s.partition('l')
+		 => ["He", "l", "lo World"] 
+
+	75. prepend(*other_strings) → string
+		Prepends each string in other_strings to self and returns self:
+
+		3.2.2 :164 > s
+		 => "Hello World" 
+		3.2.2 :165 > s.prepend('How', 'are', 'you?')
+		 => "Howareyou?Hello World" 
+
+	76. replace(other_string) → self
+		Replaces the contents of self with the contents of other_string. Alias for: initialize_copy
+
+		3.2.2 :166 > s
+		 => "Howareyou?Hello World" 
+		3.2.2 :167 > s.replace("Hello")
+		 => "Hello" 
+
+	77. reverse → string
+		Returns a new string with the characters from self in reverse order.
+
+		3.2.2 :168 > s
+		 => "Hello" 
+		3.2.2 :169 > s.reverse
+		 => "olleH" 
+
+	78. reverse! → self
+		Returns self with its characters reversed:
+
+		3.2.2 :170 > s
+		 => "Hello" 
+		3.2.2 :171 > s.reverse!
+		 => "olleH" 
+		3.2.2 :172 > s
+		 => "olleH" 
+
+	79. rindex(substring, offset = self.length) → integer or nil {OR} rindex(regexp, offset = self.length) → integer or nil
+		Returns the Integer index of the last occurrence of the given substring, or nil if none found:
+
+		3.2.2 :173 > s
+		 => "olleH" 
+		3.2.2 :174 > s.rindex('l')
+		 => 2 
+
+	80. rjust(size, pad_string = ' ') → new_string
+		Returns a right-justified copy of self. If integer argument size is greater than the size (in characters) of self, 
+		returns a new string of length size that is a copy of self, right justified and padded on the left with pad_string.
+		If size is not greater than the size of self, returns a copy of self:
+
+		3.2.2 :174 > s.rindex('l')
+		 => 2 
+		3.2.2 :175 > s.rjust(10)
+		 => "     olleH" 
+
+	81. rpartition(sep) → [head, match, tail]
+		Returns a 3-element array of substrings of self. Matches a pattern against self, scanning backwards from the end. 
+
+		3.2.2 :178 > s
+		 => "Hello" 
+		3.2.2 :179 > s.rpartition('l')
+		 => ["Hel", "l", "o"] 
+
+	82. rstrip → new_string
+		Returns a copy of the receiver with trailing whitespace removed; 
+
+		3.2.2 :180 > s = "Hello     "
+		 => "Hello     " 
+		3.2.2 :181 > s.rstrip
+		 => "Hello" 
+
+	83. rstrip! → self or nil
+		Like String#rstrip, except that any modifications are made in self; returns self if any modification are made, nil otherwise.
+
+	84.  scan(string_or_regexp) → array [OR] scan(string_or_regexp) {|matches| ... } → self 
+		Matches a pattern against self; the pattern is:
+		string_or_regexp itself, if it is a Regexp. Regexp.quote(string_or_regexp), if string_or_regexp is a string. 
+		Iterates through self, generating a collection of matching results. If the pattern contains no groups, each result is the matched string, $&. 
+		If the pattern contains groups, each result is an array containing one entry per group. With no block given, returns an array of the results.
+
+		3.2.2 :185 > s = "Hello World"
+		 => "Hello World" 
+		3.2.2 :186 > s.scan(/\w+/)
+		 => ["Hello", "World"] 
+		3.2.2 :187 > s.scan(/.../)
+		 => ["Hel", "lo ", "Wor"] 
+
+	85. scrub(replacement_string = default_replacement) → new_string [OR] scrub{|bytes| ... } → new_string
+		Returns a copy of self with each invalid byte sequence replaced by the given replacement_string.
+		With no block given and no argument, replaces each invalid sequence with the default replacement string ("�" for a Unicode encoding, '?' otherwise):
+
+		3.2.2 :190 > s = "Hello\x81\x81Hi"
+		 => "Hello\x81\x81Hi" 
+		3.2.2 :191 > s.scrub
+		 => "Hello��Hi" 
+	
+	86. scrub! → self [OR] scrub!(replacement_string = default_replacement) → self [OR] scrub!{|bytes| ... } → self
+		Like String#scrub, except that any replacements are made in self.
+
+	87. setbyte(index, integer) → integer
+		Sets the byte at zero-based index to integer; returns integer.
+
+		3.2.2 :195 > s
+		 => "Hello World" 
+		3.2.2 :196 > s.setbyte(0, 65)
+		 => 65 
+		3.2.2 :197 > s
+		 => "Aello World" 
+
+	88. size()
+		Returns the count of characters (not bytes) in self. Alias for: length.
+
+		3.2.2 :198 > s
+		 => "Aello World" 
+		3.2.2 :199 > s.size
+		 => 11 
+
+	89. slice(*args)
+		Returns the substring of self specified by the arguments. Alias for: []
+
+		
+	90. slice!(index) → new_string or nil [OR] slice!(start, length) → new_string or nil [OR] slice!(range) → new_string or nil [OR] slice!(regexp, capture = 0) → new_string or nil 
+	    [OR] slice!(substring) → new_string or nil
+		Removes and returns the substring of self specified by the arguments. 
+
+		3.2.2 :205 > s = "Hello World"
+		 => "Hello World" 
+		3.2.2 :206 > s.slice!(2)
+		 => "l" 
+		3.2.2 :207 > s
+		 => "Helo World" 
+		3.2.2 :208 > s.slice!(3..6)
+		 => "o Wo" 
+		3.2.2 :209 > s
+		 => "Helrld" 
