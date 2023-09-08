@@ -1793,3 +1793,294 @@
 		 => "o Wo" 
 		3.2.2 :209 > s
 		 => "Helrld" 
+	
+	91. split(field_sep = $;, limit = nil) → array [OR] split(field_sep = $;, limit = nil) {|substring| ... } → self
+		Returns an array of substrings of self that are the result of splitting self at each occurrence of the given field separator field_sep.
+
+		3.2.2 :001 > s = "Hello World"
+		 => "Hello World" 
+		3.2.2 :002 > s.split()
+		 => ["Hello", "World"] 
+		3.2.2 :003 > s.split('l')
+		 => ["He", "", "o Wor", "d"] 
+		3.2.2 :004 > s.split(/l/)
+		 => ["He", "", "o Wor", "d"] 
+
+	92. squeeze(*selectors) → new_string
+		Returns a copy of self with characters specified by selectors “squeezed”.
+		“Squeezed” means that each multiple-character run of a selected character is squeezed down to a single character; with no arguments given, squeezes all characters:
+
+		3.2.2 :005 > s
+		 => "Hello World" 
+		3.2.2 :006 > s.squeeze
+		 => "Helo World" 
+
+	93. squeeze!(*selectors) → self or nil
+		Like String#squeeze, but modifies self in place. Returns self if any changes were made, nil otherwise.
+
+		3.2.2 :008 > s
+		 => "Hello World" 
+		3.2.2 :009 > s.squeeze!
+		 => "Helo World" 
+
+	94. start_with?(*string_or_regexp) → true or false
+		Returns whether self starts with any of the given string_or_regexp.
+		
+		3.2.2 :010 > s = "Hello World!"
+		 => "Hello World!" 
+		3.2.2 :011 > s.start_with?("he")
+		 => false 
+		3.2.2 :012 > s.start_with?("He")
+		 => true 
+
+	95. strip → new_string
+		Returns a copy of the receiver with leading and trailing whitespace removed.
+		
+		3.2.2 :013 > s = "    Hello World!    "
+		 => "    Hello World!    " 
+		3.2.2 :014 > s.strip
+		 => "Hello World!" 
+
+	96. strip! → self or nil
+		Like String#strip, except that any modifications are made in self; returns self if any modification are made, nil otherwise.
+
+	97. sub(pattern, replacement) → new_string [OR] sub(pattern) {|match| ... } → new_string
+		Returns a copy of self with only the first occurrence (not all occurrences) of the given pattern replaced.
+
+		3.2.2 :017 > s
+		 => "Hello World!" 
+		3.2.2 :018 > s.sub(/ell/, 'al')
+		 => "Halo World!" 
+		3.2.2 :019 > s.sub(/[aeiou]/, '*')
+		 => "H*llo World!" 
+
+	98. sub!(pattern, replacement) → self or nil [OR] sub!(pattern) {|match| ... } → self or nil
+		Returns self with only the first occurrence (not all occurrences) of the given pattern replaced.
+
+	99. succ → new_str
+		Returns the successor to self. The successor is calculated by incrementing characters. Also aliased as: next
+
+		3.2.2 :020 > s
+		 => "Hello World!" 
+		3.2.2 :021 > s.succ
+		 => "Hello Worle!" 
+		3.2.2 :022 > "01".succ
+		 => "02" 
+		3.2.2 :023 > "az".succ
+		 => "ba" 
+
+	100. succ! → self
+		Equivalent to String#succ, but modifies self in place; returns self.
+
+	101. sum(n = 16) → integer
+		Returns a basic n-bit checksum of the characters in self; the checksum is the sum of the binary value of each byte in self, modulo 2**n - 1.
+		This is not a particularly strong checksum.
+
+		3.2.2 :024 > s
+		 => "Hello World!" 
+		3.2.2 :025 > s.sum
+		 => 1085 
+		3.2.2 :026 > s.sum(4)
+		 => 13 
+		3.2.2 :027 > s.sum(16)
+		 => 1085 
+		3.2.2 :028 > s.sum(64)
+		 => 1085
+
+	102. swapcase(*options) → string
+		Returns a string containing the characters in self, with cases reversed; each uppercase character is downcased; each lowercase character is upcased:
+
+		3.2.2 :029 > s
+		 => "Hello World!" 
+		3.2.2 :030 > s.swapcase
+		 => "hELLO wORLD!" 
+
+	103. swapcase!(*options) → self or nil
+		Upcases each lowercase character in self; downcases uppercase character; returns self if any changes were made, nil otherwise:
+
+		3.2.2 :031 > s
+		 => "Hello World!" 
+		3.2.2 :032 > s.swapcase!
+		 => "hELLO wORLD!" 
+
+	104. to_c → complex
+		Returns a complex which denotes the string form. The parser ignores leading whitespaces and trailing garbage. Any digit sequences can be separated by an underscore. 
+		Returns zero for null or garbage string.
+
+		3.2.2 :033 > s = '9'
+		 => "9" 
+		3.2.2 :034 > s.to_c
+		 => (9+0i)
+		3.2.2 :035 > s = '45i'
+		 => "45i" 
+		3.2.2 :036 > s.to_c
+		 => (0+45i) 
+
+	105. to_f → float
+		Returns the result of interpreting leading characters in self as a Float. 
+
+		3.2.2 :038 > s = "3.14159"
+		 => "3.14159" 
+		3.2.2 :039 > s.to_f
+		 => 3.14159 
+
+	106. to_i(base = 10) → integer
+		Returns the result of interpreting leading characters in self as an integer in the given base
+
+		3.2.2 :040 > s = "129273"
+		 => "129273" 
+		3.2.2 :041 > s.to_i
+		 => 129273 
+		3.2.2 :047 > s
+		 => "129273" 
+		3.2.2 :048 > s = "0123def"
+		 => "0123def" 
+		3.2.2 :049 > s.to_i
+		 => 123 
+
+	107. to_r → rational
+		Returns the result of interpreting leading characters in str as a rational. Leading whitespace and extraneous characters past the end of a valid number are ignored. 
+		Digit sequences can be separated by an underscore. If there is not a valid number at the start of str, zero is returned. This method never raises an exception.
+
+		3.2.2 :051 > s = "  2  "
+		 => "  2  " 
+		3.2.2 :052 > s.to_r
+		 => (2/1) 
+
+	108. to_s → self or string
+		Returns self if self is a String, or self converted to a String if self is a subclass of String.
+		String#to_str is an alias for String#to_s.
+
+		3.2.2 :053 > s = 123
+		 => 123 
+		3.2.2 :054 > s.to_s
+		 => "123" 
+
+	109. to_str()
+		Returns self if self is a String, or self converted to a String if self is a subclass of String.
+		String#to_str is an alias for String#to_s.
+		Alias for: to_s
+
+	110. to_sym → symbol
+		Returns the Symbol corresponding to str, creating the symbol if it did not previously exist. 
+
+		3.2.2 :057 > s.to_sym
+		 => :cat 
+		3.2.2 :058 > s
+		 => "cat" 
+		3.2.2 :059 > s.intern
+		 => :cat 
+
+	111. tr(selector, replacements) → new_string
+		Returns a copy of self with each character specified by string selector translated to the corresponding character in string replacements.
+
+		3.2.2 :062 > s = "Hello"
+		 => "Hello" 
+		3.2.2 :063 > s.tr('el', 'ip')
+		 => "Hippo" 
+		3.2.2 :064 > s.tr('aeiou', '-')
+		 => "H-ll-"  
+
+	112. tr!(selector, replacements) → self or nil
+		Like String#tr, but modifies self in place. Returns self if any changes were made, nil otherwise.
+
+	113. tr_s(selector, replacements) → string
+		Like String#tr, but also squeezes the modified portions of the translated string; returns a new string (translated and squeezed).
+		
+		3.2.2 :065 > s
+		 => "Hello" 
+		3.2.2 :066 > s.tr_s('l', 'r')
+		 => "Hero" 
+
+	114. tr_s!(selector, replacements) → self or nil
+		Like String#tr_s, but modifies self in place. Returns self if any changes were made, nil otherwise.
+
+	115. undump → string
+		Returns an unescaped version of self.
+
+		3.2.2 :075 > s_orig = "\f\x00\xff\\\""
+		 => "\f\u0000\xFF\\\"" 
+		3.2.2 :076 > s_dumped = s_orig.dump
+		 => "\"\\f\\x00\\xFF\\\\\\\"\"" 
+		3.2.2 :077 > s_undumped = s_dumped.undump
+		 => "\f\u0000\xFF\\\"" 
+		3.2.2 :078 > s_undumped == s_orig
+		 => true 
+
+	116. unicode_normalize(form = :nfc) → string
+		Returns a copy of self with Unicode normalization applied.
+
+		3.2.2 :079 > "a\u0300".unicode_normalize 
+		 => "à" 
+		3.2.2 :080 > "\u00E0".unicode_normalize(:nfd)
+		 => "à" 
+
+	117. unicode_normalize!(form = :nfc) → self
+		Like String#unicode_normalize, except that the normalization is performed on self.
+
+	118. unicode_normalized?(form = :nfc) → true or false
+		Returns true if self is in the given form of Unicode normalization, false otherwise. The form must be one of :nfc, :nfd, :nfkc, or :nfkd.
+
+		3.2.2 :081 > s = "a\u0300"
+		 => "à" 
+		3.2.2 :082 > s.unicode_normalized?
+		 => false 
+		3.2.2 :085 > s.unicode_normalize!
+		 => "à" 
+		3.2.2 :086 > s.unicode_normalized?
+		 => true 
+
+	119. unpack(template, offset: 0) → array
+		Extracts data from self, forming objects that become the elements of a new array; returns that array. 
+
+	120. unpack1(template, offset: 0) → object
+		Like String#unpack, but unpacks and returns only the first extracted object.
+
+	121. upcase(*options) → string
+		Returns a string containing the upcased characters in self:
+
+		3.2.2 :088 > s = "Hello"
+		 => "Hello" 
+		3.2.2 :089 > s.upcase
+		 => "HELLO" 
+	
+	122. upcase!(*options) → self or nil
+		Upcases the characters in self; returns self if any changes were made, nil otherwise:
+
+		3.2.2 :090 > s
+		 => "Hello" 
+		3.2.2 :091 > s.upcase!
+		 => "HELLO" 
+		3.2.2 :092 > s
+		 => "HELLO" 
+
+	123. upto(other_string, exclusive = false) {|string| ... } → self [OR] upto(other_string, exclusive = false) → new_enumerator
+		With a block given, calls the block with each String value returned by successive calls to String#succ; the first value is self, the next is self.succ, and so on; 
+		the sequence terminates when value other_string is reached; returns self:
+
+		3.2.2 :094 > s = "a8"
+		 => "a8" 
+		3.2.2 :095 > s.upto('b6') {|s| print s, " "}
+		a8 a9 b0 b1 b2 b3 b4 b5 b6  => "a8" 
+		3.2.2 :094 > s = "a8"
+	 	 => "a8" 
+		3.2.2 :095 > s.upto('b6') {|s| print s, " "}
+		a8 a9 b0 b1 b2 b3 b4 b5 b6  => "a8" 
+		3.2.2 :096 > s.upto('b6', true) {|s| print s, " "}
+		a8 a9 b0 b1 b2 b3 b4 b5  => "a8" 
+		3.2.2 :097 > '25'.upto('30') {|s| p s}
+		"25"
+		"26"                                                              
+		"27"                                                              
+		"28"                                                              
+		"29"                                                              
+		"30"   
+		 => "25" 
+
+	124. valid_encoding? → true or false
+		Returns true if self is encoded correctly, false otherwise:
+
+		3.2.2 :110 > "\xc2\xa1".force_encoding("UTF-8").valid_encoding?
+		 => true 
+		3.2.2 :111 > "\xc2".force_encoding("UTF-8").valid_encoding?
+		 => false
