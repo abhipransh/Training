@@ -2084,3 +2084,201 @@
 		 => true 
 		3.2.2 :111 > "\xc2".force_encoding("UTF-8").valid_encoding?
 		 => false
+
+
+5. Creating a Hash
+	A Hash maps each of its unique keys to a specific value. A Hash has certain similarities to an Array, but: 
+	An Array index is always an Integer. A Hash key can be (almost) any object.
+
+	You can create a Hash object explicitly with: A hash literal. You can convert certain objects to Hashes with: Method Hash. You can create a Hash by calling method Hash.new.
+
+	1. h = Hash.new
+		Create an empty Hash:
+
+		3.2.2 :001 > h = Hash.new
+		 => {} 
+		3.2.2 :002 > h.class
+		 => Hash 
+
+	2. h = Hash[]
+		You can create a Hash by calling method Hash.[].
+
+		3.2.2 :003 > h = Hash[]
+		 => {} 
+	
+	3. h = Hash[key1: value1, key2: value2, key3: value3]
+		Create a Hash with initial entries:
+
+		3.2.2 :004 > h = Hash[foo: 0, bar: 1, baz: 2]
+		 => {:foo=>0, :bar=>1, :baz=>2} 
+
+	4. h = {}
+		You can create a Hash by using its literal form (curly braces).
+
+		3.2.2 :005 > h = {}
+		 => {} 
+
+	5. h = {key1: value1, key2: value2, key3: value3}
+		Create a Hash with initial entries:
+		
+		3.2.2 :006 > h = {foo: 0, bar: 1, baz: 2}
+		 => {:foo=>0, :bar=>1, :baz=>2} 
+		
+6. Following are the public hash methods (assuming hash is an array object):
+
+	1. hash < other_hash → true or false
+		Returns true if hash is a proper subset of other_hash, false otherwise:
+
+		3.2.2 :001 > h1 = {foo: 0, bar: 1}
+		 => {:foo=>0, :bar=>1} 
+		3.2.2 :002 > h2 = {foo: 0, bar: 1, baz: 2}
+		 => {:foo=>0, :bar=>1, :baz=>2} 
+		3.2.2 :003 > h1 < h2
+		 => true 
+		3.2.2 :004 > h2 < h1
+		 => false 
+		3.2.2 :005 > h1 < h1
+		 => false 
+
+	2. hash <= other_hash → true or false
+		Returns true if hash is a subset of other_hash, false otherwise:
+
+		3.2.2 :001 > h1 = {foo: 0, bar: 1}
+		 => {:foo=>0, :bar=>1} 
+		3.2.2 :002 > h2 = {foo: 0, bar: 1, baz: 2}
+		 => {:foo=>0, :bar=>1, :baz=>2} 
+		3.2.2 :006 > h1 <= h2
+		 => true 
+		3.2.2 :007 > h2 <= h1
+		 => false 
+		3.2.2 :008 > h1 <= h1
+		 => true 
+
+	3. hash == object → true or false
+		Returns true if all of the following are true: object is a Hash object. hash and object have the same keys (regardless of order).
+		For each key key, hash[key] == object[key]. Otherwise, returns false.
+		
+		3.2.2 :001 > h1 = {foo: 0, bar: 1, baz: 2}
+		 => {:foo=>0, :bar=>1, :baz=>2} 
+		3.2.2 :002 > h2 = {foo: 0, bar: 1, baz: 2}
+		 => {:foo=>0, :bar=>1, :baz=>2} 
+		3.2.2 :003 > h3 = {baz: 2, bar: 1, foo: 0}
+		 => {:baz=>2, :bar=>1, :foo=>0} 
+		3.2.2 :004 > h1 == h2
+		 => true 
+		3.2.2 :005 > h1 == h3
+		 => true 
+
+	4. hash > other_hash → true or false	
+		Returns true if hash is a proper superset of other_hash, false otherwise:
+
+		3.2.2 :009 > h1
+		 => {:foo=>0, :bar=>1, :baz=>2} 
+		3.2.2 :010 > h2 = {foo: 0, bar: 1}
+		 => {:foo=>0, :bar=>1} 
+		3.2.2 :011 > h1 >h2
+		 => true 
+		3.2.2 :012 > h2 > h1
+		 => false 
+		3.2.2 :013 > h1 > h1
+		 => false
+
+	5. hash >= other_hash → true or false
+		Returns true if hash is a superset of other_hash, false otherwise:
+
+		3.2.2 :009 > h1
+		 => {:foo=>0, :bar=>1, :baz=>2} 
+		3.2.2 :010 > h2 = {foo: 0, bar: 1}
+		 => {:foo=>0, :bar=>1} 
+		3.2.2 :014 > h1 >= h2
+		 => true 
+		3.2.2 :015 > h2 >= h1
+		 => false 
+		3.2.2 :016 > h1 >= h1
+		 => true 
+
+	6. hash[key] → value
+		Returns the value associated with the given key, if found. If key is not found, returns a default value.
+
+		3.2.2 :020 > h1
+		 => {:foo=>0, :bar=>1, :baz=>2} 
+		3.2.2 :021 > h1[:foo]
+		 => 0 
+		3.2.2 :022 > h1[:nosuch]
+		 => nil 
+
+	7. hash[key] = value → value
+		Associates the given value with the given key; returns value. If the given key exists, replaces its value with the given value; the ordering is not affected 
+		If key does not exist, adds the key and value; the new entry is last in the order
+		Hash#store is an alias for Hash#[]=. 
+
+		3.2.2 :025 > h1
+		 => {:foo=>0, :bar=>1, :baz=>2} 
+		3.2.2 :026 > h1[:foo] = 3
+		 => 3 
+		3.2.2 :027 > h1.store(:bar, 6)
+		 => 6  		
+		3.2.2 :029 > h1		
+		 => {:foo=>3, :bar=>6, :baz=>2} 
+
+		3.2.2 :030 > h = {foo: 0, bar: 1}
+		 => {:foo=>0, :bar=>1} 
+		3.2.2 :031 > h[:baz] = 2
+		 => 2 
+		3.2.2 :032 > h.store(:bat, 3)
+		 => 3 
+		3.2.2 :033 > h
+		 => {:foo=>0, :bar=>1, :baz=>2, :bat=>3} 
+
+	8. any? → true or false [OR] any?(object) → true or false [OR] any? {|key, value| ... } → true or false
+		Returns true if any element satisfies a given criterion; false otherwise. With no argument and no block, returns true if self is non-empty; false if empty.
+
+		With argument object and no block, returns true if for any key key h.assoc(key) == object:
+
+		3.2.2 :034 > h
+		 => {:foo=>0, :bar=>1, :baz=>2, :bat=>3} 
+		3.2.2 :035 > h.any?([:bar, 1])
+		 => true 
+		3.2.2 :036 > h.any?([:bar, 0])
+		 => false 
+	
+		With no argument and a block, calls the block with each key-value pair; returns true if the block returns any truthy value, false otherwise:
+
+		3.2.2 :037 > h = {foo: 0, bar: 1, baz: 2}
+		 => {:foo=>0, :bar=>1, :baz=>2} 
+		3.2.2 :038 > h.any? {|key, value| value < 3}
+		 => true 
+		3.2.2 :039 > h.any? {|key, value| value > 3}
+		 => false 
+
+	9. assoc(key) → new_array or nil
+		If the given key is found, returns a 2-element Array containing that key and its value:
+
+		3.2.2 :040 > h = {foo: 0, bar: 1, baz: 2}
+		 => {:foo=>0, :bar=>1, :baz=>2} 
+		3.2.2 :041 > h.assoc(:bar)
+		 => [:bar, 1] 
+
+		Returns nil if key key is not found.
+
+	10. clear → self
+		Removes all hash entries; returns self.
+
+		3.2.2 :042 > h
+		 => {:foo=>0, :bar=>1, :baz=>2} 
+		3.2.2 :043 > h.clear
+		 => {} 
+		3.2.2 :044 > h
+		 => {} 
+
+	11. compact → new_hash
+		Returns a copy of self with all nil-valued entries removed:
+
+		3.2.2 :048 > h1
+		 => {:foo=>3, :bar=>6, :baz=>2} 
+		3.2.2 :049 > h1[:bat] = nil
+		 => nil 
+		3.2.2 :050 > h1
+		 => {:foo=>3, :bar=>6, :baz=>2, :bat=>nil} 
+		3.2.2 :051 > h1.compact
+		 => {:foo=>3, :bar=>6, :baz=>2} 
